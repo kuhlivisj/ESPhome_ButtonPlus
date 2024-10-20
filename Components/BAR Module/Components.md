@@ -1,13 +1,13 @@
 # Components on B+ BAR Module
 
 ## Displays:
-Osptek YDP096B002-V1
+Brand: Osptek
+Type: YDP096B002-V1
 Protocol: SPI
 
 [Specification PDF](./YDP_096_B002_V1_8_P_b6210a13b6.pdf)
 
 ### Pinout:
-
 ```
 Left		Right		Common		PIN SYMBOL	FUNCTION
 									1 LEDA 		Backlight anode
@@ -21,5 +21,9 @@ IC1-14 GP5							8 CS 		Chip select pin
 ```
 
 ## IC 1
-Microchip MCP23008
+Brand: Microchip 
+Type: MCP23008
+Protocol: I2C
+
+[Datasheet](./MCP23008-MCP23S08-Data-Sheet-20001919F.pdf)
 
