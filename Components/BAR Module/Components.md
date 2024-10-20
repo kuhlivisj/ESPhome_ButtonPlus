@@ -27,3 +27,24 @@ Protocol: I2C
 
 [Datasheet](./MCP23008-MCP23S08-Data-Sheet-20001919F.pdf)
 
+## Base connector 1
+```
+PIN		Description				Destination
+1
+	2
+3
+	4
+5
+	6	I2C Address MSP A2		IC 1 #1
+7		
+	8	I2C Address MSP A1		IC 1 #2
+9		
+	10	I2C Address MSP A0		IC 1 #3
+11
+	12
+13
+	14
+15
+	16	Neopixel Data OUT
+17		Neopixel Data IN
+```
