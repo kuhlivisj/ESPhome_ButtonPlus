@@ -1,9 +1,35 @@
-# Components on B+ BAR Module
+# Components on B+ Display Module
 
-## Displays:
+## Display:
+
 Brand: Shenzen Surenoo
 Type: YT280S030 (STP0280B2-240320)
 Protocol: SPI
+Driver IC: ST7789V
+Resolution: 320 (h) x 240 (v)
+
+[Datasheet](../Datasheets/STP0280B2-240320.pdf)
+
+## IC 1
+
+Brand: Microchip 
+Type: MCP23008
+Protocol: I2C
+
+[Datasheet](../Datasheets/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf)
+
+### IO:
+
+```
+GP0		Display Backlight Cathode	Display	#11,12,13,14
+GP1		Display Backlight Cathode	Display	#11,12,13,14
+GP2		Button Right
+GP3		N.C.
+GP4		N.C.
+GP5		Display Chip Select			Display #5
+GP6		Button Left
+GP7		Display Backlight Cathode	Display	#11,12,13,14
+```
 
 ## Base connector CN0
 ```
@@ -48,23 +74,24 @@ PIN		Description
 17		Neopixel Data IN  > directly to pin 16
 ```
 ## Base connector CN2
+
 ```
-PIN		Description
-1
-	2
-3
-	4
-5
-	6	I2C Address MSP A2		IC 1 #1
-7		
-	8	I2C Address MSP A1		IC 1 #2
-9		
-	10	I2C Address MSP A0		IC 1 #3
-11
-	12
-13
-	14
-15
+PIN		Description				Destination
+1		GND
+	2	+3.3V
+3		Reset					IC 1 #4, Display #2
+	4	I2C SI					IC 1 #20
+5		SPI	SDA					Display #6
+	6	I2C SCK					IC 1 #19
+7		SPI SCL					Display #3
+	8	I2C Address MSP A0		IC 1 #3
+9		SPI Register select		Display #4
+	10	I2C Address MSP A1		IC 1 #2
+11		Backlight anode			Display #1
+	12	I2C Address MSP A2		IC 1 #1
+13		N.C. ??
+	14	N.C. ??
+15		N.C. ??
 	16	Neopixel Data OUT
-17		Neopixel Data IN
+17		Neopixel Data IN		
 ```
