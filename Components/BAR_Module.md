@@ -65,23 +65,23 @@ Button Right:	IC 1 # 11	GP2
 ## Base connector 1
 
 ```
-PIN		Description				Destination
-1		GND
-	2	+3.3V
-3		Reset					IC 1 #4, Display #3
-	4	I2C SDA					IC 1 #20
-5		SPI MOSI				Display #5
-	6	I2C SCL					IC 1 #19
-7		SPI SCK					Display #6
-	8	I2C Address MSP A0		IC 1 #3
-9		SPI Register select		Display #4
-	10	I2C Address MSP A1		IC 1 #2
-11		Backlight anode			Display #1
-	12	I2C Address MSP A2		IC 1 #1
-13		N.C. ??
-	14	N.C. ??
-15		N.C. ??
-	16	Neopixel Data OUT
-17		Neopixel Data IN		
+PIN		Description						Destination
+1		GND								GND
+	2	+3.3V							+3.3V
+3		Reset							IC 1 #4, Display #3
+	4	I2C SDA							IC 1 #20
+5		SPI MOSI						Display #5
+	6	I2C SCL							IC 1 #19
+7		SPI SCK							Display #6
+	8	I2C Address MSP A0				IC 1 #3
+9		SPI Register select				Display #4
+	10	I2C Address MSP A1				IC 1 #2
+11		Backlight anode					Display #1
+	12	I2C Address MSP A2				IC 1 #1
+13		Extensionplate...				-
+	14	Connected with J0,2,3			-
+15		Main Display Backlight anode	-
+	16	Neopixel Data OUT				Neopixel Front Left
+17		Neopixel Data IN				Neopixel Back Right
 ```
 
