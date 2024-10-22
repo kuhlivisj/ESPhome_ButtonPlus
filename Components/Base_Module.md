@@ -19,17 +19,17 @@ PIN		Description				Destination
 	2	+3.3V
 3		Reset					ESP32 #3 EN
 	4	I2C SI					ESP32 #24 IO47
-5		SPI	SDA					ESP32 #28 IO35
+5		SPI MOSI				ESP32 #28 IO35
 	6	I2C SCK					ESP32 #25 IO48
-7		SPI SCL					ESP32 #29 IO36
+7		SPI SCK					ESP32 #29 IO36
 	8	I2C Address MSP A0		GND
 9		SPI Register select		ESP32 #30 IO37
 	10	I2C Address MSP A1		GND
 11		Backlight anode			ESP32 #16 IO46 (via transistor)
 	12	I2C Address MSP A2		GND
-13		N.C. ??
-	14	N.C. ??
-15		N.C. ??
+13		Extensionplate...
+	14	Connected with J1,2,3
+15		Backlight anode			ESP32 #15 IO3
 	16	Neopixel Data OUT		J1 #17
 17		Neopixel Data IN		ESP32 #4 IO4
 ```
@@ -44,17 +44,17 @@ PIN		Description				Destination
 	2	+3.3V
 3		Reset					ESP32 #3 EN
 	4	I2C SI					ESP32 #24 IO47
-5		SPI	SDA					ESP32 #28 IO35
+5		SPI MOSI				ESP32 #28 IO35
 	6	I2C SCK					ESP32 #25 IO48
-7		SPI SCL					ESP32 #29 IO36
+7		SPI SCK					ESP32 #29 IO36
 	8	I2C Address MSP A0		3.3V
 9		SPI Register select		ESP32 #30 IO37
 	10	I2C Address MSP A1		GND
 11		Backlight anode			ESP32 #16 IO46 (via transistor)
 	12	I2C Address MSP A2		GND
-13		N.C. ??
-	14	N.C. ??
-15		N.C. ??	
+13		Extensionplate...
+	14	Connected with J0,2,3
+15		Backlight anode			ESP32 #15 IO3
 	16	Neopixel Data OUT		J2 #17
 17		Neopixel Data IN		J0 #16
 ```
@@ -69,17 +69,17 @@ PIN		Description				Destination
 	2	+3.3V
 3		Reset					ESP32 #3 EN
 	4	I2C SI					ESP32 #24 IO47
-5		SPI	SDA					ESP32 #28 IO35
+5		SPI MOSI				ESP32 #28 IO35
 	6	I2C SCK					ESP32 #25 IO48
-7		SPI SCL					ESP32 #29 IO36
+7		SPI SCK					ESP32 #29 IO36
 	8	I2C Address MSP A0		GND
 9		SPI Register select		ESP32 #30 IO37
 	10	I2C Address MSP A1		3.3V
 11		Backlight anode			ESP32 #16 IO46 (via transistor)
 	12	I2C Address MSP A2		GND
-13		N.C. ??
-	14	N.C. ??
-15		N.C. ??	
+13		Extensionplate...
+	14	Connected with J0,1,3
+15		Backlight anode			ESP32 #15 IO3
 	16	Neopixel Data OUT		J3 #17
 17		Neopixel Data IN		J1 #16
 ```
@@ -94,7 +94,7 @@ PIN		Description				Destination
 	2	+3.3V
 3		Reset					ESP32 #3 EN
 	4	I2C SI					ESP32 #24 IO47
-5		SPI	SDA					ESP32 #28 IO35
+5		SPI MOSI				ESP32 #28 IO35
 	6	I2C SCK					ESP32 #25 IO48
 7		SPI SCL					ESP32 #29 IO36
 	8	I2C Address MSP A0		3.3V
@@ -102,9 +102,9 @@ PIN		Description				Destination
 	10	I2C Address MSP A1		3.3V
 11		Backlight anode			ESP32 #16 IO46 (via transistor)
 	12	I2C Address MSP A2		GND
-13		N.C. ??
-	14	N.C. ??
-15		N.C. ??
+13		Extensionplate...
+	14	Connected with J0,1,2
+15		Backlight anode			ESP32 #15 IO3
 	16	Neopixel Data OUT		Extensionplate #5
 17		Neopixel Data IN		J2 #16
 ```

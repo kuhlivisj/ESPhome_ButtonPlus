@@ -69,10 +69,10 @@ PIN		Description				Destination
 1		GND
 	2	+3.3V
 3		Reset					IC 1 #4, Display #3
-	4	I2C SI					IC 1 #20
-5		SPI	SDA					Display #5
-	6	I2C SCK					IC 1 #19
-7		SPI SCL					Display #6
+	4	I2C SDA					IC 1 #20
+5		SPI MOSI				Display #5
+	6	I2C SCL					IC 1 #19
+7		SPI SCK					Display #6
 	8	I2C Address MSP A0		IC 1 #3
 9		SPI Register select		Display #4
 	10	I2C Address MSP A1		IC 1 #2
