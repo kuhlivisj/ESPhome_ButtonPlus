@@ -1,0 +1,183 @@
+esphome:
+  name: buttonplus-test
+  friendly_name: ButtonPlus_test
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "2IF/Aa3Sf31DyZpHOBhDoQM1+RuDeLZhHbVSmKVdwx0="
+
+ota:
+  - platform: esphome
+    password: "f3063af8596a5910fc4798ff4efee4dc"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Buttonplus-Test Fallback Hotspot"
+    password: "m8FaRl2yzalt"
+
+captive_portal:
+    
+i2c:
+  sda: GPIO47
+  scl: GPIO48
+  scan: true
+  frequency: 400khz
+
+spi:
+  clk_pin: GPIO36
+  mosi_pin: GPIO35
+
+mcp23008:
+  # - id: 'base_J0'
+  #   address: 0x20
+  # - id: 'base_J1'
+  #   address: 0x21
+  - id: 'base_J2'
+    address: 0x22
+  - id: 'base_J3'
+    address: 0x23
+
+# Define a PWM output on the ESP32
+output:
+  - platform: ledc
+    pin: GPIO46
+    id: displays_mini_backlight_pwm
+    inverted: True
+  - platform: ledc
+    pin: GPIO3
+    id: display_main_backlight_pwm
+    inverted: True
+
+binary_sensor:
+  - platform: gpio
+    id: 'base_j2_btn_left'
+    name: "Display button Left"
+    pin: 
+      mcp23xxx: base_J2
+      number: 6
+      mode: INPUT_PULLUP
+      inverted: true
+
+  - platform: gpio
+    id: 'base_j2_btn_right'
+    name: "Display button Right"
+    pin: 
+      mcp23xxx: base_J2
+      number: 2
+      mode: INPUT_PULLUP
+      inverted: true
+
+  - platform: gpio
+    id: 'base_j3_btn_left'
+    name: "BAR button Left"
+    pin: 
+      mcp23xxx: base_J3
+      number: 6
+      mode: INPUT_PULLUP
+      inverted: true
+
+  - platform: gpio
+    id: 'base_j3_btn_right'
+    name: "BAR button Right"
+    pin: 
+      mcp23xxx: base_J3
+      number: 2
+      mode: INPUT_PULLUP
+      inverted: true
+
+light:
+  - platform: monochromatic
+    output: displays_mini_backlight_pwm
+    name: "Mini Display Backlight"
+    id: displays_mini_backlight
+    restore_mode: ALWAYS_ON
+  - platform: monochromatic
+    output: display_main_backlight_pwm
+    name: "Main Display Backlight"
+    id: display_main_backlight
+    restore_mode: ALWAYS_ON
+
+display:
+  - id: display_j2_main
+    platform: ili9xxx
+    model: ili9341
+    invert_colors: false
+    dc_pin: 
+      number: GPIO37
+      allow_other_uses: true
+    cs_pin: 
+      mcp23xxx: base_J2
+      number: 5
+      mode:
+        output: true
+      inverted: false
+    update_interval: 1s
+    show_test_card: false
+    dimensions: 
+      height: 240
+      width: 320
+    rotation: 180
+    lambda: |-
+      it.print(0, 25, id(my_font), "Hello World! From ESPHome");
+  - id: display_j3_Left
+    platform: ili9xxx
+    model: ST7735
+    dc_pin: 
+      number: GPIO37
+      allow_other_uses: true
+    cs_pin: 
+      mcp23xxx: base_J3
+      number: 5
+      mode:
+        output: true
+      inverted: false
+    invert_colors: false
+    show_test_card: false
+    dimensions: 
+      height: 160
+      width: 80
+      offset_width: 24
+    rotation: 270
+    update_interval: 1s
+    lambda: |-
+      it.print(0, 25, id(my_font), "Hello World! From ESPHome");
+  - id: display_j3_Right
+    platform: ili9xxx
+    model: ST7735
+    dc_pin:
+      number: GPIO37
+      allow_other_uses: true
+    cs_pin: 
+      mcp23xxx: base_J3
+      number: 1
+      mode:
+        output: true
+      inverted: false
+    invert_colors: false
+    show_test_card: false
+    dimensions: 
+      height: 160
+      width: 80
+      offset_width: 24
+    rotation: 90
+    update_interval: 1s
+    lambda: |-
+      it.print(0, 25, id(my_font), "Hello World! From ESPHome");
+
+font:
+  - file: "gfonts://Roboto"
+    id: my_font
+    size: 20
