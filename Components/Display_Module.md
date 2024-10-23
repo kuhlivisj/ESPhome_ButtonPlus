@@ -30,8 +30,10 @@ GP5		Display Chip Select			Display #5
 GP6		Button Left
 GP7		Display Backlight Cathode	Display	#11,12,13,14
 ```
+## Base Connectors
 
-## Base connector CN0
+### CN0
+
 ```
 PIN		Description
 1		N.C.
@@ -52,7 +54,9 @@ PIN		Description
 	16	Neopixel Data OUT > directly to pin 17
 17		Neopixel Data IN  > directly to pin 16
 ```
-## Base connector CN1
+
+### CN1
+
 ```
 PIN		Description
 1		N.C.
@@ -73,25 +77,26 @@ PIN		Description
 	16	Neopixel Data OUT > directly to pin 17
 17		Neopixel Data IN  > directly to pin 16
 ```
-## Base connector CN2
+
+### CN2
 
 ```
-PIN		Description				Destination
-1		GND
-	2	+3.3V
-3		Reset					IC 1 #4, Display #2
-	4	I2C SI					IC 1 #20
-5		SPI	SDA					Display #6
-	6	I2C SCK					IC 1 #19
-7		SPI SCL					Display #3
-	8	I2C Address MSP A0		IC 1 #3
-9		SPI Register select		Display #4
-	10	I2C Address MSP A1		IC 1 #2
-11		Backlight anode			Display #1
-	12	I2C Address MSP A2		IC 1 #1
-13		N.C. ??
-	14	N.C. ??
-15		N.C. ??
-	16	Neopixel Data OUT
-17		Neopixel Data IN		
+PIN		Description						Destination
+1		GND								GND
+	2	+3.3V							+3.3V
+3		Reset							IC 1 #4, Display #2
+	4	I2C SI							IC 1 #20
+5		SPI	MOSI						Display #6
+	6	I2C SCL							IC 1 #19
+7		SPI SCK							Display #3
+	8	I2C Address MSP A0				IC 1 #3
+9		SPI Register select				Display #4
+	10	I2C Address MSP A1				IC 1 #2
+11		Backlight anode					Display #1
+	12	I2C Address MSP A2				IC 1 #1
+13		Extensionplate...				-
+	14	Connected with J0,2,3			-
+15		Main Display Backlight anode	-
+	16	Neopixel Data OUT				-
+17		Neopixel Data IN				-
 ```
