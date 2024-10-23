@@ -8,6 +8,8 @@ Want to help? Pull requests are welcome!
 
 ## TODO:
 
-[ ] Neonleds
-[ ] Documentation
-[ ] More examples
+- [ ] Neonleds
+	- [ ] figure out how to control them individually. [> maybe with Light Partition](https://esphome.io/components/light/partition)
+	- [ ] find correct [type](https://esphome.io/components/light/neopixelbus.html#configuration-variables)
+- [ ] Documentation
+- [ ] More examples
