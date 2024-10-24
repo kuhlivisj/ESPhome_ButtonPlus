@@ -1,6 +1,6 @@
 # ESPhome_ButtonPlus
 
-__ESPHome documentation and examples to make ESPHome working on the Button+__
+*ESPHome documentation and examples to make ESPHome working on the Button+*
 
 ## Status
 
