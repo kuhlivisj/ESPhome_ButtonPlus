@@ -7,6 +7,51 @@ Driver IC: ST7735S (ESPHome compatible)
 
 [Datasheet](../Datasheets/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf)
 
+### Pinout / IO
+
+```
+1	GND		
+2	3.3V	
+3	EN		
+4	IO4		Neopixel LED's
+5	IO5		
+6	IO6		
+7	IO7		
+8	IO15	
+9	IO16	
+10	IO17	
+11	IO18	
+12	IO8		
+13	IO19	
+14	IO20	
+15	IO3		Backlight main display
+16	IO46	Backlight mini displays
+17	IO9		
+18	IO10	
+19	IO11	
+20	IO12	
+21	IO13	
+22	IO14	
+23	IO21	
+24	IO47	I2C SI
+25	IO48	I2C SCL
+26	IO45	
+27	IO0		
+28	IO35	SPI MOSI
+29	IO36	SPI SCK
+30	IO37	SPI Register select
+31	IO38	
+32	IO39	
+33	IO40	
+34	IO41	
+35	IO42	
+36	TXD0	
+37	RXD0	
+38	IO1		
+39	IO2		
+40	GND		
+```
+
 ## Connectors
 
 ### Connector J0
