@@ -33,8 +33,8 @@ Driver IC: ST7735S (ESPHome compatible)
 21	IO13	
 22	IO14	
 23	IO21	
-24	IO47	I2C SI
-25	IO48	I2C SCL
+24	IO47	I2C SDA > Buttons
+25	IO48	I2C SCL > Buttons
 26	IO45	
 27	IO0		
 28	IO35	SPI MOSI
@@ -47,8 +47,8 @@ Driver IC: ST7735S (ESPHome compatible)
 35	IO42	
 36	TXD0	
 37	RXD0	
-38	IO1		
-39	IO2		
+38	IO1		I2C SDA > Temperature Sensor
+39	IO2		I2S SCL > Temperature Sensor
 40	GND		
 ```
 
@@ -63,7 +63,7 @@ PIN		Description						Destination
 1		GND
 	2	+3.3V
 3		Reset							ESP32 #3 EN
-	4	I2C SI							ESP32 #24 IO47
+	4	I2C SDA							ESP32 #24 IO47
 5		SPI MOSI						ESP32 #28 IO35
 	6	I2C SCK							ESP32 #25 IO48
 7		SPI SCK							ESP32 #29 IO36
@@ -88,7 +88,7 @@ PIN		Description						Destination
 1		GND
 	2	+3.3V
 3		Reset							ESP32 #3 EN
-	4	I2C SI							ESP32 #24 IO47
+	4	I2C SDA							ESP32 #24 IO47
 5		SPI MOSI						ESP32 #28 IO35
 	6	I2C SCK							ESP32 #25 IO48
 7		SPI SCK							ESP32 #29 IO36
@@ -113,7 +113,7 @@ PIN		Description						Destination
 1		GND
 	2	+3.3V
 3		Reset							ESP32 #3 EN
-	4	I2C SI							ESP32 #24 IO47
+	4	I2C SDA							ESP32 #24 IO47
 5		SPI MOSI						ESP32 #28 IO35
 	6	I2C SCK							ESP32 #25 IO48
 7		SPI SCK							ESP32 #29 IO36
@@ -138,7 +138,7 @@ PIN		Description						Destination
 1		GND
 	2	+3.3V
 3		Reset							ESP32 #3 EN
-	4	I2C SI							ESP32 #24 IO47
+	4	I2C SDA							ESP32 #24 IO47
 5		SPI MOSI						ESP32 #28 IO35
 	6	I2C SCK							ESP32 #25 IO48
 7		SPI SCL							ESP32 #29 IO36
