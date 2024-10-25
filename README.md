@@ -19,6 +19,6 @@ The Button+ is a modular control panel designed to work with MQTT. It has a "Mai
 - [x] Neonleds
 	- [x] figure out how to control them individually. [> maybe with Light Partition](https://esphome.io/components/light/partition)
 	- [x] find correct [type](https://esphome.io/components/light/neopixelbus.html#configuration-variables)
-- [ ] Temperature sensor STS35
+- [x] Temperature sensor STS35
 - [ ] Documentation
 - [ ] More examples
