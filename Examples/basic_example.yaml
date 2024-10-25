@@ -27,6 +27,10 @@ ota:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  
+### 
+### Code below is specific for the Button+
+###
     
 i2c:
   - id: temperature_sensor
