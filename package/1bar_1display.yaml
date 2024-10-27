@@ -132,36 +132,6 @@ time:
   - platform: homeassistant
     id: esptime
 
-font:
-  - file: "https://github.com/web-fonts/ttf/raw/refs/heads/master/bpg-ingiri-arial-webfont.ttf"
-    id: my_font20
-    size: 20
-  - file: "https://github.com/web-fonts/ttf/raw/refs/heads/master/bpg-ingiri-arial-webfont.ttf"
-    id: my_font15
-    size: 15
-  - file: "https://github.com/web-fonts/ttf/raw/refs/heads/master/bpg-ingiri-arial-webfont.ttf"
-    id: my_font40
-    size: 40
-
-image:
-  - file: mdi:lightbulb
-    id: lightbulb
-    resize: 80x80
-  - file: mdi:alert
-    id: alert
-    resize: 80x80
-  - file: "https://i.postimg.cc/CMXFmZ5n/henk.png"
-    id: henk
-    resize: 120x100
-    type: RGBA
-    use_transparency: true
-
-color:
-  - id: red
-    hex: 0000FF
-  - id: blue
-    hex: FF0000
-
 display:
   - id: display_j2_main
     platform: ili9xxx
@@ -176,7 +146,7 @@ display:
       mode:
         output: true
       inverted: false
-    update_interval: 100ms
+    update_interval: 200ms
     show_test_card: false
     dimensions: 
       height: 240
