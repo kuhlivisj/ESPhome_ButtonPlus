@@ -16,7 +16,7 @@ i2c:
     sda: GPIO47
     scl: GPIO48
     scan: true
-    frequency: 400khz
+    frequency: 800khz
 
 spi:
   clk_pin: GPIO36
