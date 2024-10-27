@@ -11,6 +11,8 @@ packages:
     base: !include base.yaml
 
 mcp23008:
+  - id: 'base_J0'
+    address: 0x20
   - id: 'base_J1'
     address: 0x21
   - id: 'base_J2'
@@ -25,18 +27,18 @@ binary_sensor:
   ### Buttons Main Display ###
   ############################
   - platform: gpio
-    id: 'base_j1_btn_left'
+    id: 'base_j0_btn_left'
     name: "Display button Left"
     pin: 
-      mcp23xxx: base_J1
+      mcp23xxx: base_J0
       number: 6
       mode: INPUT_PULLUP
       inverted: true
   - platform: gpio
-    id: 'base_j1_btn_right'
+    id: 'base_j0_btn_right'
     name: "Display button Right"
     pin: 
-      mcp23xxx: base_J1
+      mcp23xxx: base_J0
       number: 2
       mode: INPUT_PULLUP
       inverted: true
@@ -45,8 +47,28 @@ binary_sensor:
   ### Buttons BAR module 1 ###
   ############################
   - platform: gpio
-    id: 'base_j2_btn_left'
+    id: 'base_j1_btn_left'
     name: "BAR 1 button Left"
+    pin: 
+      mcp23xxx: base_J1
+      number: 6
+      mode: INPUT_PULLUP
+      inverted: true
+  - platform: gpio
+    id: 'base_j1_btn_right'
+    name: "BAR 1 button Right"
+    pin: 
+      mcp23xxx: base_J1
+      number: 2
+      mode: INPUT_PULLUP
+      inverted: true
+      
+  ############################
+  ### Buttons BAR module 2 ###
+  ############################
+  - platform: gpio
+    id: 'base_j2_btn_left'
+    name: "BAR 2 button Left"
     pin: 
       mcp23xxx: base_J2
       number: 6
@@ -54,7 +76,7 @@ binary_sensor:
       inverted: true
   - platform: gpio
     id: 'base_j2_btn_right'
-    name: "BAR 1 button Right"
+    name: "BAR 2 button Right"
     pin: 
       mcp23xxx: base_J2
       number: 2
@@ -62,11 +84,11 @@ binary_sensor:
       inverted: true
 
   ############################
-  ### Buttons BAR module 2 ###
+  ### Buttons BAR module 3 ###
   ############################
   - platform: gpio
     id: 'base_j3_btn_left'
-    name: "BAR 2 button Left"
+    name: "BAR 3 button Left"
     pin: 
       mcp23xxx: base_J3
       number: 6
@@ -74,7 +96,7 @@ binary_sensor:
       inverted: true
   - platform: gpio
     id: 'base_j3_btn_right'
-    name: "BAR 2 button Right"
+    name: "BAR 3 button Right"
     pin: 
       mcp23xxx: base_J3
       number: 2
@@ -146,12 +168,43 @@ light:
       - id: neopixels
         from: 7
         to: 7
+  ##############################
+  ### RGB LED's BAR module 3 ###
+  ##############################
+  - platform: partition
+    name: "BAR 3 Left RGB Front"
+    id: bar_3_left_rgb_front
+    segments:
+      - id: neopixels
+        from: 8
+        to: 8
+  - platform: partition
+    name: "BAR 3 Left RGB Back"
+    id: bar_3_left_rgb_back
+    segments:
+      - id: neopixels
+        from: 9
+        to: 9
+  - platform: partition
+    name: "BAR 3 Right RGB Front"
+    id: bar_3_right_rgb_front
+    segments:
+      - id: neopixels
+        from: 10 
+        to: 10
+  - platform: partition
+    name: "BAR 3 Right RGB Back"
+    id: bar_3_right_rgb_back
+    segments:
+      - id: neopixels
+        from: 11
+        to: 11
 
 display:
   ####################
   ### Main Display ###
   ####################
-  - id: display_j1_main
+  - id: display_j0_main
     platform: ili9xxx
     model: ili9341
     invert_colors: false
@@ -159,7 +212,7 @@ display:
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
-      mcp23xxx: base_J1
+      mcp23xxx: base_J0
       number: 5
       mode:
         output: true
@@ -173,6 +226,49 @@ display:
   ####################
   ### BAR module 1 ###
   ####################
+  - id: display_j1_Left
+    platform: ili9xxx
+    model: ST7735
+    dc_pin: 
+      number: GPIO37
+      allow_other_uses: true
+    cs_pin: 
+      mcp23xxx: base_J1
+      number: 5
+      mode:
+        output: true
+      inverted: false
+    invert_colors: false
+    show_test_card: false
+    dimensions: 
+      height: 160
+      width: 80
+      offset_width: 24
+    rotation: 270
+    update_interval: 1s
+  - id: display_j1_Right
+    platform: ili9xxx
+    model: ST7735
+    dc_pin:
+      number: GPIO37
+      allow_other_uses: true
+    cs_pin: 
+      mcp23xxx: base_J1
+      number: 1
+      mode:
+        output: true
+      inverted: false
+    invert_colors: false
+    show_test_card: false
+    dimensions: 
+      height: 160
+      width: 80
+      offset_width: 24
+    rotation: 90
+    update_interval: 1s
+  ####################
+  ### BAR module 2 ###
+  ####################
   - id: display_j2_Left
     platform: ili9xxx
     model: ST7735
@@ -180,7 +276,7 @@ display:
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
-      mcp23xxx: base_J3
+      mcp23xxx: base_J2
       number: 5
       mode:
         output: true
@@ -214,7 +310,7 @@ display:
     rotation: 90
     update_interval: 1s
   ####################
-  ### BAR module 2 ###
+  ### BAR module 3 ###
   ####################
   - id: display_j3_Left
     platform: ili9xxx

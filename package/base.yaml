@@ -1,3 +1,12 @@
+###########################################
+##                                       ##
+##   filename: base.yaml                 ##
+##   description: contains configuration ##
+##   that will be the same for all the   ##
+##   possible configurations             ##
+##                                       ##
+###########################################
+
 i2c:
   - id: temperature_sensor
     sda: GPIO1
@@ -12,7 +21,6 @@ i2c:
 spi:
   clk_pin: GPIO36
   mosi_pin: GPIO35
-  # miso_pin: GPIOXX
 
 output:
   - platform: ledc
@@ -38,7 +46,7 @@ light:
     type: RGB
     variant: WS2812
     pin: GPIO4
-    num_leds: 20
+    num_leds: 17
   - platform: monochromatic
     output: displays_mini_backlight_pwm
     name: "Mini Display Backlight"
@@ -49,3 +57,7 @@ light:
     name: "Main Display Backlight"
     id: display_main_backlight
     restore_mode: ALWAYS_ON
+    
+time:
+  - platform: homeassistant
+    id: datetime

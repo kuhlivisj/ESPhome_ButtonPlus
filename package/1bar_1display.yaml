@@ -1,11 +1,15 @@
+###########################################
+##                                       ##
+##   filename: 1bar_1display.yaml        ##
+##   description: Specific configuration ##
+##   for the 1 BAR 1 Display setup       ##
+##                                       ##
+###########################################
+
 packages: 
     base: !include base.yaml
 
 mcp23008:
-  # - id: 'base_J0'
-  #   address: 0x20
-  # - id: 'base_J1'
-  #   address: 0x21
   - id: 'base_J2'
     i2c_id: buttons
     address: 0x22
@@ -14,6 +18,9 @@ mcp23008:
     address: 0x23
 
 binary_sensor:
+  ############################
+  ### Buttons Main Display ###
+  ############################
   - platform: gpio
     id: 'base_j2_btn_left'
     name: "Display button Left"
@@ -22,7 +29,6 @@ binary_sensor:
       number: 6
       mode: INPUT_PULLUP
       inverted: true
-
   - platform: gpio
     id: 'base_j2_btn_right'
     name: "Display button Right"
@@ -32,6 +38,9 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
 
+  ############################
+  ### Buttons BAR module 1 ###
+  ############################
   - platform: gpio
     id: 'base_j3_btn_left'
     name: "BAR button Left"
@@ -40,7 +49,6 @@ binary_sensor:
       number: 6
       mode: INPUT_PULLUP
       inverted: true
-
   - platform: gpio
     id: 'base_j3_btn_right'
     name: "BAR button Right"
@@ -53,6 +61,9 @@ binary_sensor:
 light:
   - id: !extend neopixels
     num_leds: 5
+  ############################
+  ### RGB LED's BAR module ###
+  ############################
   - platform: partition
     name: "BAR J3 Left RGB Front"
     id: bar_j3_left_rgb_front
@@ -82,11 +93,10 @@ light:
         from: 3
         to: 3
 
-time:
-  - platform: homeassistant
-    id: esptime
-
 display:
+  ####################
+  ### Main Display ###
+  ####################
   - id: display_j2_main
     platform: ili9xxx
     model: ili9341
@@ -106,6 +116,9 @@ display:
       height: 240
       width: 320
     rotation: 180
+  ##################
+  ### BAR module ###
+  ##################
   - id: display_j3_Left
     platform: ili9xxx
     model: ST7735
