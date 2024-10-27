@@ -181,7 +181,7 @@ display:
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
-      mcp23xxx: base_J3
+      mcp23xxx: base_J2
       number: 5
       mode:
         output: true
