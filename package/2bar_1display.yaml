@@ -4,8 +4,8 @@ packages:
 mcp23008:
   # - id: 'base_J0'
   #   address: 0x20
-  # - id: 'base_J1'
-  #   address: 0x21
+  - id: 'base_J1'
+    address: 0x21
   - id: 'base_J2'
     i2c_id: buttons
     address: 0x22
@@ -15,8 +15,26 @@ mcp23008:
 
 binary_sensor:
   - platform: gpio
-    id: 'base_j2_btn_left'
+    id: 'base_j1_btn_left'
     name: "Display button Left"
+    pin: 
+      mcp23xxx: base_J1
+      number: 6
+      mode: INPUT_PULLUP
+      inverted: true
+
+  - platform: gpio
+    id: 'base_j1_btn_right'
+    name: "Display button Right"
+    pin: 
+      mcp23xxx: base_J1
+      number: 2
+      mode: INPUT_PULLUP
+      inverted: true
+      
+  - platform: gpio
+    id: 'base_j2_btn_left'
+    name: "BAR 1 button Left"
     pin: 
       mcp23xxx: base_J2
       number: 6
@@ -25,7 +43,7 @@ binary_sensor:
 
   - platform: gpio
     id: 'base_j2_btn_right'
-    name: "Display button Right"
+    name: "BAR 1 button Right"
     pin: 
       mcp23xxx: base_J2
       number: 2
@@ -34,7 +52,7 @@ binary_sensor:
 
   - platform: gpio
     id: 'base_j3_btn_left'
-    name: "BAR button Left"
+    name: "BAR 2 button Left"
     pin: 
       mcp23xxx: base_J3
       number: 6
@@ -43,7 +61,7 @@ binary_sensor:
 
   - platform: gpio
     id: 'base_j3_btn_right'
-    name: "BAR button Right"
+    name: "BAR 2 button Right"
     pin: 
       mcp23xxx: base_J3
       number: 2
@@ -52,35 +70,63 @@ binary_sensor:
 
 light:
   - id: !extend neopixels
-    num_leds: 5
+    num_leds: 9
   - platform: partition
-    name: "BAR J3 Left RGB Front"
-    id: bar_j3_left_rgb_front
+    name: "BAR 1 Left RGB Front"
+    id: bar_1_left_rgb_front
     segments:
       - id: neopixels
         from: 0
         to: 0
   - platform: partition
-    name: "BAR J3 Left RGB Back"
-    id: bar_j3_left_rgb_back
+    name: "BAR 1 Left RGB Back"
+    id: bar_1_left_rgb_back
     segments:
       - id: neopixels
         from: 1
         to: 1
   - platform: partition
-    name: "BAR J3 Right RGB Front"
-    id: bar_j3_right_rgb_front
+    name: "BAR 1 Right RGB Front"
+    id: bar_1_right_rgb_front
     segments:
       - id: neopixels
         from: 2
         to: 2
   - platform: partition
-    name: "BAR J3 Right RGB Back"
-    id: bar_j3_right_rgb_back
+    name: "BAR 1 Right RGB Back"
+    id: bar_1_right_rgb_back
     segments:
       - id: neopixels
         from: 3
         to: 3
+  - platform: partition
+    name: "BAR 2 Left RGB Front"
+    id: bar_2_left_rgb_front
+    segments:
+      - id: neopixels
+        from: 4
+        to: 4
+  - platform: partition
+    name: "BAR 2 Left RGB Back"
+    id: bar_2_left_rgb_back
+    segments:
+      - id: neopixels
+        from: 5
+        to: 5
+  - platform: partition
+    name: "BAR 2 Right RGB Front"
+    id: bar_2_right_rgb_front
+    segments:
+      - id: neopixels
+        from: 6
+        to: 6
+  - platform: partition
+    name: "BAR 2 Right RGB Back"
+    id: bar_2_right_rgb_back
+    segments:
+      - id: neopixels
+        from: 7
+        to: 7
 
 time:
   - platform: homeassistant

@@ -1,0 +1,51 @@
+i2c:
+  - id: temperature_sensor
+    sda: GPIO1
+    scl: GPIO2
+    scan: true
+  - id: buttons
+    sda: GPIO47
+    scl: GPIO48
+    scan: true
+    frequency: 400khz
+
+spi:
+  clk_pin: GPIO36
+  mosi_pin: GPIO35
+  # miso_pin: GPIOXX
+
+output:
+  - platform: ledc
+    pin: GPIO46
+    id: displays_mini_backlight_pwm
+    inverted: True
+  - platform: ledc
+    pin: GPIO3
+    id: display_main_backlight_pwm
+    inverted: True
+
+sensor:
+  - platform: sts3x
+    id: inside_temperature
+    i2c_id: temperature_sensor
+    name: "Temperature"
+    address: 0x4A
+    update_interval: 10s
+
+light:
+  - platform: neopixelbus
+    id: neopixels
+    type: RGB
+    variant: WS2812
+    pin: GPIO4
+    num_leds: 20
+  - platform: monochromatic
+    output: displays_mini_backlight_pwm
+    name: "Mini Display Backlight"
+    id: displays_mini_backlight
+    restore_mode: ALWAYS_ON
+  - platform: monochromatic
+    output: display_main_backlight_pwm
+    name: "Main Display Backlight"
+    id: display_main_backlight
+    restore_mode: ALWAYS_ON
