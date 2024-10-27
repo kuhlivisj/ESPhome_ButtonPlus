@@ -12,6 +12,7 @@ packages:
 
 mcp23008:
   - id: 'base_J1'
+    i2c_id: buttons
     address: 0x21
   - id: 'base_J2'
     i2c_id: buttons
