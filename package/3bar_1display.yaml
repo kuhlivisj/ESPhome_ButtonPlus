@@ -1,11 +1,10 @@
-###########################################
-##                                       ##
-##   filename: base.yaml                 ##
-##   description: contains configuration ##
-##   that will be the same for all the   ##
-##   possible setups                     ##
-##                                       ##
-###########################################
+############################################
+##                                        ##
+##   filename: 3bar_1display.yaml         ##
+##   description: Specific configuration  ##
+##   for the 3 BAR's, 1 Display setup     ##
+##                                        ##
+############################################
 
 packages: 
     base: !include base.yaml

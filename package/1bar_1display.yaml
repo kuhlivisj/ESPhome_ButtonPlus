@@ -1,10 +1,10 @@
-###########################################
-##                                       ##
-##   filename: 1bar_1display.yaml        ##
-##   description: Specific configuration ##
-##   for the 1 BAR 1 Display setup       ##
-##                                       ##
-###########################################
+############################################
+##                                        ##
+##   filename: 1bar_1display.yaml         ##
+##   description: Specific configuration  ##
+##   for the 1 BAR 1 Display setup        ##
+##                                        ##
+############################################
 
 packages: 
     base: !include base.yaml
