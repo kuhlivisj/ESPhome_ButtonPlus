@@ -83,11 +83,11 @@ binary_sensor:
       inverted: true
 
 light:
+  - id: !extend neopixels
+    num_leds: 9
   ##############################
   ### RGB LED's BAR module 1 ###
   ##############################
-  - id: !extend neopixels
-    num_leds: 9
   - platform: partition
     name: "BAR 1 Left RGB Front"
     id: bar_1_left_rgb_front
