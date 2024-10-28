@@ -17,7 +17,7 @@ i2c:
   - id: buttons
     sda: GPIO47
     scl: GPIO48
-    frequency: 800khz
+    frequency: 400khz
 
 spi:
   clk_pin: GPIO36
@@ -35,7 +35,7 @@ output:
     id: display_main_backlight_pwm
     inverted: True
     max_power: 0.3
-    frequency: 100Hz
+    frequency: 500Hz
 
 sensor:
   - platform: sts3x
