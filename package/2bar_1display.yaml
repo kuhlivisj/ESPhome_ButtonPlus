@@ -155,6 +155,7 @@ display:
     platform: ili9xxx
     model: ili9341
     data_rate: 80MHz
+    color_order: rgb
     invert_colors: false
     dc_pin: 
       number: GPIO37
@@ -178,7 +179,8 @@ display:
     platform: ili9xxx
     model: ST7735
     data_rate: 80MHz
-    dc_pin: 
+    color_order: rgb
+    dcpin: 
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
@@ -199,7 +201,8 @@ display:
     platform: ili9xxx
     model: ST7735
     data_rate: 80MHz
-    dc_pin:
+    color_order: rgb
+    dcpin:
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
@@ -223,7 +226,8 @@ display:
     platform: ili9xxx
     model: ST7735
     data_rate: 80MHz
-    dc_pin: 
+    color_order: rgb
+    dcpin: 
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
@@ -244,7 +248,8 @@ display:
     platform: ili9xxx
     model: ST7735
     data_rate: 80MHz
-    dc_pin:
+    color_order: rgb
+    dcpin:
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
