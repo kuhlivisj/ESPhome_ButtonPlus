@@ -25,10 +25,12 @@ output:
     pin: GPIO46
     id: displays_mini_backlight_pwm
     inverted: True
+    max_power: 0.6
   - platform: ledc
     pin: GPIO3
     id: display_main_backlight_pwm
     inverted: True
+    max_power: 0.9
 
 sensor:
   - platform: sts3x
@@ -49,7 +51,7 @@ light:
     output: displays_mini_backlight_pwm
     name: "Mini Display Backlight"
     id: displays_mini_backlight
-    restore_mode: ALWAYS_ON
+    restore_mode: ALWAYS_OFF
     brightness_limits: 
       max_brightness: 75%
   - platform: monochromatic
