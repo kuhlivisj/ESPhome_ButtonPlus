@@ -14,7 +14,7 @@ i2c:
   - id: buttons
     sda: GPIO47
     scl: GPIO48
-    frequency: 400khz
+    frequency: 800khz
 
 spi:
   clk_pin: GPIO36
