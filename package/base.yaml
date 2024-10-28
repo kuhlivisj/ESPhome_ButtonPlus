@@ -7,6 +7,9 @@
 ##                                       ##
 ###########################################
 
+esp32:
+  flash_size: 16MB
+
 i2c:
   - id: temperature_sensor
     sda: GPIO1
