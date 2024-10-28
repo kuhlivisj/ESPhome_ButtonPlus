@@ -100,6 +100,7 @@ display:
   - id: display_j2_main
     platform: ili9xxx
     model: ili9341
+    data_rate: 80MHz
     invert_colors: false
     dc_pin: 
       number: GPIO37
@@ -110,7 +111,7 @@ display:
       mode:
         output: true
       inverted: false
-    update_interval: 200ms
+    update_interval: 500ms
     show_test_card: false
     dimensions: 
       height: 240
@@ -122,6 +123,7 @@ display:
   - id: display_j3_Left
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -142,6 +144,7 @@ display:
   - id: display_j3_Right
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin:
       number: GPIO37
       allow_other_uses: true

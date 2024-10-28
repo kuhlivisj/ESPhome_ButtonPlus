@@ -208,6 +208,7 @@ display:
   - id: display_j0_main
     platform: ili9xxx
     model: ili9341
+    data_rate: 80MHz
     invert_colors: false
     data_rate: 80MHz
     dc_pin: 
@@ -231,6 +232,7 @@ display:
   - id: display_j1_Left
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -251,6 +253,7 @@ display:
   - id: display_j1_Right
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin:
       number: GPIO37
       allow_other_uses: true
@@ -274,6 +277,7 @@ display:
   - id: display_j2_Left
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -294,6 +298,7 @@ display:
   - id: display_j2_Right
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin:
       number: GPIO37
       allow_other_uses: true
@@ -317,6 +322,7 @@ display:
   - id: display_j3_Left
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -337,6 +343,7 @@ display:
   - id: display_j3_Right
     platform: ili9xxx
     model: ST7735
+    data_rate: 80MHz
     dc_pin:
       number: GPIO37
       allow_other_uses: true
