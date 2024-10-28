@@ -51,9 +51,7 @@ light:
     output: displays_mini_backlight_pwm
     name: "Mini Display Backlight"
     id: displays_mini_backlight
-    restore_mode: ALWAYS_OFF
-    brightness_limits: 
-      max_brightness: 75%
+    restore_mode: ALWAYS_ON
   - platform: monochromatic
     output: display_main_backlight_pwm
     name: "Main Display Backlight"
