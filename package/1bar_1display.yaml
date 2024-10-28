@@ -110,7 +110,7 @@ display:
       mode:
         output: true
       inverted: false
-    update_interval: 200ms
+    update_interval: 500ms
     show_test_card: false
     dimensions: 
       height: 240
@@ -122,6 +122,7 @@ display:
   - id: display_j3_Left
     platform: ili9xxx
     model: ST7735
+    color_order: bgr
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -142,6 +143,7 @@ display:
   - id: display_j3_Right
     platform: ili9xxx
     model: ST7735
+    color_order: bgr
     dc_pin:
       number: GPIO37
       allow_other_uses: true
