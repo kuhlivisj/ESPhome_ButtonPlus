@@ -209,6 +209,7 @@ display:
     platform: ili9xxx
     model: ili9341
     invert_colors: false
+    data_rate: 80MHz
     dc_pin: 
       number: GPIO37
       allow_other_uses: true

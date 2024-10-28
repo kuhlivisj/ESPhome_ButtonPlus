@@ -11,12 +11,10 @@ i2c:
   - id: temperature_sensor
     sda: GPIO1
     scl: GPIO2
-    scan: true
   - id: buttons
     sda: GPIO47
     scl: GPIO48
-    scan: true
-    frequency: 200khz
+    frequency: 400khz
 
 spi:
   clk_pin: GPIO36
