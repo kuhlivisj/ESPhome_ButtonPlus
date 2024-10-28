@@ -180,7 +180,7 @@ display:
     model: ST7735
     data_rate: 80MHz
     color_order: rgb
-    dcpin: 
+    dc_pin: 
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
@@ -202,7 +202,7 @@ display:
     model: ST7735
     data_rate: 80MHz
     color_order: rgb
-    dcpin:
+    dc_pin:
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
@@ -227,7 +227,7 @@ display:
     model: ST7735
     data_rate: 80MHz
     color_order: rgb
-    dcpin: 
+    dc_pin: 
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
@@ -249,7 +249,7 @@ display:
     model: ST7735
     data_rate: 80MHz
     color_order: rgb
-    dcpin:
+    dc_pin:
       number: GPIO37
       allow_other_uses: true
     cs_pin: 
