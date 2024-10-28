@@ -154,7 +154,7 @@ display:
   - id: display_j1_main
     platform: ili9xxx
     model: ili9341
-    data_rate: 80MHz
+    data_rate: 40MHz
     color_order: bgr
     invert_colors: false
     dc_pin: 
@@ -178,7 +178,7 @@ display:
   - id: display_j2_Left
     platform: ili9xxx
     model: ST7735
-    data_rate: 80MHz
+    data_rate: 40MHz
     color_order: bgr
     dc_pin: 
       number: GPIO37
@@ -200,7 +200,7 @@ display:
   - id: display_j2_Right
     platform: ili9xxx
     model: ST7735
-    data_rate: 80MHz
+    data_rate: 40MHz
     color_order: bgr
     dc_pin:
       number: GPIO37
@@ -225,7 +225,7 @@ display:
   - id: display_j3_Left
     platform: ili9xxx
     model: ST7735
-    data_rate: 80MHz
+    data_rate: 40MHz
     color_order: bgr
     dc_pin: 
       number: GPIO37
@@ -247,7 +247,7 @@ display:
   - id: display_j3_Right
     platform: ili9xxx
     model: ST7735
-    data_rate: 80MHz
+    data_rate: 40MHz
     color_order: bgr
     dc_pin:
       number: GPIO37
