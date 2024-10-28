@@ -7,16 +7,17 @@
 ##                                       ##
 ###########################################
 
+esp32:
+  flash_size: 16MB
+
 i2c:
   - id: temperature_sensor
     sda: GPIO1
     scl: GPIO2
-    scan: true
   - id: buttons
     sda: GPIO47
     scl: GPIO48
-    scan: true
-    frequency: 200khz
+    frequency: 400khz
 
 spi:
   clk_pin: GPIO36
@@ -27,10 +28,14 @@ output:
     pin: GPIO46
     id: displays_mini_backlight_pwm
     inverted: True
+    max_power: 0.4
+    frequency: 500Hz
   - platform: ledc
     pin: GPIO3
     id: display_main_backlight_pwm
     inverted: True
+    max_power: 0.3
+    frequency: 500Hz
 
 sensor:
   - platform: sts3x
