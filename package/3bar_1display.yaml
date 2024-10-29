@@ -209,7 +209,7 @@ display:
     platform: ili9xxx
     model: ili9341
     invert_colors: false
-    color_order: bgr
+    color_order: rgb
     dc_pin: 
       number: GPIO37
       allow_other_uses: true

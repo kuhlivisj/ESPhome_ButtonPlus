@@ -154,7 +154,7 @@ display:
   - id: display_j1_main
     platform: ili9xxx
     model: ili9341
-    color_order: bgr
+    color_order: rgb
     invert_colors: false
     dc_pin: 
       number: GPIO37
