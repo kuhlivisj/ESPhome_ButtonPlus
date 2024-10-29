@@ -28,13 +28,13 @@ output:
     pin: GPIO46
     id: displays_mini_backlight_pwm
     inverted: True
-    max_power: 0.4
+    max_power: 0.8
     frequency: 500Hz
   - platform: ledc
     pin: GPIO3
     id: display_main_backlight_pwm
     inverted: True
-    max_power: 0.3
+    max_power: 0.6
     frequency: 500Hz
 
 sensor:
