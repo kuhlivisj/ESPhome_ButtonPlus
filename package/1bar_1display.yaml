@@ -104,7 +104,6 @@ display:
     invert_colors: false
     dc_pin: 
       number: GPIO37
-      ignore_strapping_warning: true
       allow_other_uses: true
     cs_pin: 
       mcp23xxx: base_J2
@@ -127,7 +126,6 @@ display:
     color_order: bgr
     dc_pin: 
       number: GPIO37
-      ignore_strapping_warning: true
       allow_other_uses: true
     cs_pin: 
       mcp23xxx: base_J3
@@ -149,7 +147,6 @@ display:
     color_order: bgr
     dc_pin:
       number: GPIO37
-      ignore_strapping_warning: true
       allow_other_uses: true
     cs_pin: 
       mcp23xxx: base_J3
