@@ -120,7 +120,7 @@ display:
   ##################
   ### BAR module ###
   ##################
-  - id: display_bar1_left
+  - id: bar1_display_left
     platform: ili9xxx
     model: ST7735
     color_order: bgr
@@ -141,7 +141,7 @@ display:
       width: 80
       offset_width: 24
     rotation: 270
-  - id: display_bar1_left
+  - id: bar1_display_left
     platform: ili9xxx
     model: ST7735
     color_order: bgr
