@@ -210,6 +210,7 @@ display:
     model: ili9341
     invert_colors: false
     color_order: rgb
+    update_interval: 30s
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -219,7 +220,6 @@ display:
       mode:
         output: true
       inverted: false
-    update_interval: 200ms
     show_test_card: false
     dimensions: 
       height: 240
@@ -232,6 +232,7 @@ display:
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -248,11 +249,11 @@ display:
       width: 80
       offset_width: 24
     rotation: 270
-    update_interval: 1s
   - id: display_j1_Right
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin:
       number: GPIO37
       allow_other_uses: true
@@ -269,7 +270,6 @@ display:
       width: 80
       offset_width: 24
     rotation: 90
-    update_interval: 1s
   ####################
   ### BAR module 2 ###
   ####################
@@ -277,6 +277,7 @@ display:
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -293,11 +294,11 @@ display:
       width: 80
       offset_width: 24
     rotation: 270
-    update_interval: 1s
   - id: display_j2_Right
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin:
       number: GPIO37
       allow_other_uses: true
@@ -314,7 +315,6 @@ display:
       width: 80
       offset_width: 24
     rotation: 90
-    update_interval: 1s
   ####################
   ### BAR module 3 ###
   ####################
@@ -322,6 +322,7 @@ display:
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -338,11 +339,11 @@ display:
       width: 80
       offset_width: 24
     rotation: 270
-    update_interval: 1s
   - id: display_j3_Right
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin:
       number: GPIO37
       allow_other_uses: true
@@ -359,4 +360,3 @@ display:
       width: 80
       offset_width: 24
     rotation: 90
-    update_interval: 1s
