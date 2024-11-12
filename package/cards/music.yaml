@@ -34,6 +34,12 @@ image:
   - file: mdi:music-note
     id: icon_music_songtitle
     resize: 20x20
+  - file: mdi:pause-box-outline
+    id: icon_music_pause
+    resize: 75x75
+  - file: mdi:play-box-outline
+    id: icon_music_play
+    resize: 75x75
 
 text_sensor:
   - platform: homeassistant
@@ -65,27 +71,27 @@ script:
       y: int
     then: 
       - lambda: |-
-          id(main_display).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
-          // switch (id(music_playerstate)){
-          //  case 1:
-          //    it.print(0, 1, "Page1");
+          // id(main_display).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
+          switch (id(music_playerstate).state.c_str()){
+           case 'paused':
+             id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(orange));
+             break;
+           case 'playing':
+             id(main_display).image(x, 1+y, id(icon_music_play), ImageAlign::TOP_LEFT, id(orange));
+             break;
+          //  case 'idle':
+          //    //it.print(0, 1, "Page3");
           //    break;
-          //  case 2:
-          //    it.print(0, 1, "Page2");
-          //    break;
-          //  case 3:
-          //    it.print(0, 1, "Page3");
-          //    break;
-          // }
+          }
           //
           // album
-          id(main_display).image(3+x, 4+y, id(icon_music_album), ImageAlign::TOP_LEFT, id(orange));
-          id(main_display).print(25+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_album).state.c_str());
+          id(main_display).image(75+3+x, 4+y, id(icon_music_album), ImageAlign::TOP_LEFT, id(orange));
+          id(main_display).print(75+25+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_album).state.c_str());
           //
           // artist
-          id(main_display).image(3+x, 30+y, id(icon_music_artist), ImageAlign::TOP_LEFT, id(orange));
-          id(main_display).print(25+x, 26+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_artist).state.c_str()); 
+          id(main_display).image(75+3+x, 30+y, id(icon_music_artist), ImageAlign::TOP_LEFT, id(orange));
+          id(main_display).print(75+25+x, 26+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_artist).state.c_str()); 
           //
           // song title
-          id(main_display).image(3+x, 56+y, id(icon_music_songtitle), ImageAlign::TOP_LEFT, id(orange));
-          id(main_display).print(25+x, 52+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_title).state.c_str()); 
+          id(main_display).image(75+3+x, 56+y, id(icon_music_songtitle), ImageAlign::TOP_LEFT, id(orange));
+          id(main_display).print(75+25+x, 52+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_title).state.c_str()); 
