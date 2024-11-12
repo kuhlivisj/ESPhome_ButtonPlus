@@ -34,11 +34,26 @@ image:
   - file: mdi:music-note
     id: icon_music_songtitle
     resize: 20x20
-  - file: mdi:pause-box-outline
-    id: icon_music_pause
+  - file: mdi:power-off
+    id: icon_music_off
+    resize: 75x75
+  - file: mdi:power-on
+    id: icon_music_on
+    resize: 75x75
+  - file: mdi:timer-sand-empty
+    id: icon_music_idle
     resize: 75x75
   - file: mdi:play-box-outline
     id: icon_music_play
+    resize: 75x75
+  - file: mdi:pause-box-outline
+    id: icon_music_pause
+    resize: 75x75
+  - file: mdi:power
+    id: icon_music_standby
+    resize: 75x75
+  - file: mdi:download-box-outline
+    id: icon_music_buffering
     resize: 75x75
 
 text_sensor:
@@ -71,11 +86,21 @@ script:
       y: int
     then: 
       - lambda: |-
-          // id(main_display).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
-          if (strcmp(id(music_playerstate).state.c_str(), "paused") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(orange));
+          // player state
+          if (strcmp(id(music_playerstate).state.c_str(), "off") == 0) {
+              id(main_display).image(x, 1+y, id(icon_music_off), ImageAlign::TOP_LEFT, id(orange));
+          } else if (strcmp(id(music_playerstate).state.c_str(), "on") == 0) {
+              id(main_display).image(x, 1+y, id(icon_music_on), ImageAlign::TOP_LEFT, id(orange));
+          } else if (strcmp(id(music_playerstate).state.c_str(), "idle") == 0) {
+              id(main_display).image(x, 1+y, id(icon_music_idle), ImageAlign::TOP_LEFT, id(orange));
           } else if (strcmp(id(music_playerstate).state.c_str(), "playing") == 0) {
               id(main_display).image(x, 1+y, id(icon_music_play), ImageAlign::TOP_LEFT, id(orange));
+          } else if (strcmp(id(music_playerstate).state.c_str(), "paused") == 0) {
+              id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(orange));
+          } else if (strcmp(id(music_playerstate).state.c_str(), "standby") == 0) {
+              id(main_display).image(x, 1+y, id(icon_music_standby), ImageAlign::TOP_LEFT, id(orange));
+          } else if (strcmp(id(music_playerstate).state.c_str(), "buffering") == 0) {
+              id(main_display).image(x, 1+y, id(icon_music_buffering), ImageAlign::TOP_LEFT, id(orange));
           }
           //
           // album
