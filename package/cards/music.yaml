@@ -1,0 +1,91 @@
+#####################################################
+##
+##   FILENAME: cards/music.yaml
+##   DESCRIPTION: card that shows info 
+##   about the current played song and
+##   players current state
+##   USAGE:
+##   package:
+##     ...
+##     card_music: !include
+##       file: cards/music.yaml
+##       vars:
+##         entity_id: media_player.xxxx
+##
+##   display:
+##   - id: !extend main_display
+##        pages:
+##          - id: player_page
+##            lambda: |-
+##              id(all_pages).execute();
+##              // insert music card:
+##              // >> id(music_card).execute(x, y);
+##              id(music_card).execute(20, 125);
+##
+#####################################################
+
+image:
+  - file: mdi:music-box-outline
+    id: icon_music_album
+    resize: 20x20
+  - file: mdi:account-music
+    id: icon_music_artist
+    resize: 20x20
+  - file: mdi:music-note
+    id: icon_music_songtitle
+    resize: 20x20
+
+text_sensor:
+  - platform: homeassistant
+    id: music_album
+    entity_id: ${entity_id}
+    attribute: media_album_name
+    on_value: 
+      - script.execute: update_main
+  - platform: homeassistant
+    id: music_artist
+    entity_id: ${entity_id}
+    attribute: media_artist
+  - platform: homeassistant
+    id: music_title
+    entity_id: ${entity_id}
+    attribute: media_title
+    on_value: 
+      - script.execute: update_main
+  - platform: homeassistant
+    id: music_playerstate
+    entity_id: ${entity_id}
+    on_value: 
+      - script.execute: update_main
+
+script:
+  - id: music_card
+    parameters: 
+      x: int
+      y: int
+    then: 
+      - lambda: |-
+          id(display_j2_main).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
+          // switch (id(music_playerstate)){
+          //  case 1:
+          //    it.print(0, 1, "Page1");
+          //    break;
+          //  case 2:
+          //    it.print(0, 1, "Page2");
+          //    break;
+          //  case 3:
+          //    it.print(0, 1, "Page3");
+          //    break;
+          // }
+          //
+          // album
+          id(display_j2_main).image(3+x, 4+y, id(icon_music_album), ImageAlign::TOP_LEFT, id(orange));
+          id(display_j2_main).print(25+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_album).state.c_str());
+          //
+          // artist
+          id(display_j2_main).image(3+x, 30+y, id(icon_music_artist), ImageAlign::TOP_LEFT, id(orange));
+          id(display_j2_main).print(25+x, 26+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_artist).state.c_str()); 
+          //
+          // song title
+          id(display_j2_main).image(3+x, 56+y, id(icon_music_songtitle), ImageAlign::TOP_LEFT, id(orange));
+          id(display_j2_main).print(25+x, 52+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_title).state.c_str()); 
