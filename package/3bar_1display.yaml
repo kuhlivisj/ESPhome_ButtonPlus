@@ -8,6 +8,7 @@
 
 packages: 
     base: !include base.yaml
+    scripts: !include 1bar_1display_scripts.yaml
 
 mcp23008:
   - id: 'base_J0'

@@ -1,0 +1,37 @@
+##############################################
+##                                          ##
+##   filename: 1bar_1display_scripts.yaml   ##
+##   description: Specific pre-defined      ##
+##   scripts for 1 BAR 1 Display setup      ##
+##                                          ##
+##############################################
+
+script:
+  - id: update_main
+    then:
+      - component.update: main_display
+  - id: update_all
+    then:
+      - component.update: main_display
+      - component.update: bar1_display_left
+      - component.update: bar1_display_right
+  - id: next_page_main
+    then: 
+      - display.page.show_next: main_display
+      - script.execute: update_main
+  - id: next_page_all
+    then: 
+      - display.page.show_next: main_display
+      - display.page.show_next: bar1_display_left
+      - display.page.show_next: bar1_display_right
+      - script.execute: update_all
+  - id: prev_page_main
+    then: 
+      - display.page.show_previous: main_display
+      - script.execute: update_main
+  - id: prev_page_all
+    then: 
+      - display.page.show_previous: main_display
+      - display.page.show_previous: bar1_display_left
+      - display.page.show_previous: bar1_display_right
+      - script.execute: update_all
