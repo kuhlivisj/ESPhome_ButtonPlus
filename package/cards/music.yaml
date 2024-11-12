@@ -72,9 +72,9 @@ script:
     then: 
       - lambda: |-
           // id(main_display).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
-          if (id(music_playerstate).state.c_str() == 'paused'){
+          if (id(music_playerstate).state == 'paused'){
               id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(orange));
-          } else if (id(music_playerstate).state.c_str() == 'playing') {
+          } else if (id(music_playerstate).state == 'playing') {
               id(main_display).image(x, 1+y, id(icon_music_play), ImageAlign::TOP_LEFT, id(orange));
           }
           //
