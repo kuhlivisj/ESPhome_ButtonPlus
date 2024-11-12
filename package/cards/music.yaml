@@ -38,23 +38,23 @@ image:
 text_sensor:
   - platform: homeassistant
     id: music_album
-    entity_id: ${music_card_enity_id}
+    entity_id: !lambda return id(music_card_enity_id);
     attribute: media_album_name
     on_value: 
       - script.execute: update_main
   - platform: homeassistant
     id: music_artist
-    entity_id: ${music_card_enity_id}
+    entity_id: !lambda return id(music_card_enity_id);
     attribute: media_artist
   - platform: homeassistant
     id: music_title
-    entity_id: ${music_card_enity_id}
+    entity_id: !lambda return id(music_card_enity_id);
     attribute: media_title
     on_value: 
       - script.execute: update_main
   - platform: homeassistant
     id: music_playerstate
-    entity_id: ${music_card_enity_id}
+    entity_id: !lambda return id(music_card_enity_id);
     on_value: 
       - script.execute: update_main
 
