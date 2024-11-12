@@ -65,7 +65,7 @@ script:
       y: int
     then: 
       - lambda: |-
-          id(display_j2_main).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
+          id(main_display).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
           // switch (id(music_playerstate)){
           //  case 1:
           //    it.print(0, 1, "Page1");
@@ -79,13 +79,13 @@ script:
           // }
           //
           // album
-          id(display_j2_main).image(3+x, 4+y, id(icon_music_album), ImageAlign::TOP_LEFT, id(orange));
-          id(display_j2_main).print(25+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_album).state.c_str());
+          id(main_display).image(3+x, 4+y, id(icon_music_album), ImageAlign::TOP_LEFT, id(orange));
+          id(main_display).print(25+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_album).state.c_str());
           //
           // artist
-          id(display_j2_main).image(3+x, 30+y, id(icon_music_artist), ImageAlign::TOP_LEFT, id(orange));
-          id(display_j2_main).print(25+x, 26+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_artist).state.c_str()); 
+          id(main_display).image(3+x, 30+y, id(icon_music_artist), ImageAlign::TOP_LEFT, id(orange));
+          id(main_display).print(25+x, 26+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_artist).state.c_str()); 
           //
           // song title
-          id(display_j2_main).image(3+x, 56+y, id(icon_music_songtitle), ImageAlign::TOP_LEFT, id(orange));
-          id(display_j2_main).print(25+x, 52+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_title).state.c_str()); 
+          id(main_display).image(3+x, 56+y, id(icon_music_songtitle), ImageAlign::TOP_LEFT, id(orange));
+          id(main_display).print(25+x, 52+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_title).state.c_str()); 
