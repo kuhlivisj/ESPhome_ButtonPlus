@@ -72,13 +72,13 @@ script:
     then: 
       - lambda: |-
           // id(main_display).print(60+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_playerstate).state.c_str());
-          switch (id(music_playerstate).state.c_str()){
-           case 'paused':
-             id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(orange));
-             break;
-           case 'playing':
-             id(main_display).image(x, 1+y, id(icon_music_play), ImageAlign::TOP_LEFT, id(orange));
-             break;
+          switch (id(music_playerstate)){
+            case 'paused':
+              id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(orange));
+              break;
+            case 'playing':
+              id(main_display).image(x, 1+y, id(icon_music_play), ImageAlign::TOP_LEFT, id(orange));
+              break;
           //  case 'idle':
           //    //it.print(0, 1, "Page3");
           //    break;
