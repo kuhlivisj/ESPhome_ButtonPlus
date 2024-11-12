@@ -142,7 +142,7 @@ display:
       width: 80
       offset_width: 24
     rotation: 270
-  - id: bar1_display_left
+  - id: bar1_display_right
     platform: ili9xxx
     model: ST7735
     color_order: bgr
