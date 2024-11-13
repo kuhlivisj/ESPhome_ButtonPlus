@@ -5,12 +5,12 @@
 ##   about the current played song and
 ##   players current state
 ##   USAGE:
+##   substitutions:
+##     music_card_enity_id: 'media_player.media_keuken_2'
 ##   package:
-##     ...
-##     card_music: !include
-##       file: cards/music.yaml
-##       vars:
-##         entity_id: media_player.xxxx
+##     remote_package_files:
+##      url: https://github.com/dixi83/ESPHome_ButtonPlus
+##      files: [<other files>,'package/cards/music.yaml']
 ##
 ##   display:
 ##   - id: !extend main_display
@@ -21,6 +21,7 @@
 ##              // insert music card:
 ##              // >> id(music_card).execute(x, y);
 ##              id(music_card).execute(20, 125);
+##   - id: !extend bar1_left
 ##
 #####################################################
 
@@ -55,6 +56,26 @@ image:
   - file: mdi:download-box-outline
     id: icon_music_buffering
     resize: 75x75
+  - file: mdi:volume-plus
+    id: icon_music_vol_up
+    resize: 75x75
+  - file: mdi:volume-minus
+    id: icon_music_vol_down
+    resize: 75x75
+  - file: mdi:skip-forward
+    id: icon_music_next
+    resize: 75x75
+  - file: mdi:skip-backward
+    id: icon_music_prev
+    resize: 75x75
+
+color: 
+  - id: music_card_text_color
+    hex: ${music_card_text_color}
+  - id: music_card_icon_main_color
+    hex: ${music_card_icon_main_color}
+  - id: music_card_icon_bar_color
+    hex: ${music_card_icon_bar_color}
 
 text_sensor:
   - platform: homeassistant
@@ -62,6 +83,7 @@ text_sensor:
     entity_id: ${music_card_enity_id}
     attribute: media_album_name
     on_value: 
+      - delay: 500ms
       - script.execute: update_main
   - platform: homeassistant
     id: music_artist
@@ -72,6 +94,7 @@ text_sensor:
     entity_id: ${music_card_enity_id}
     attribute: media_title
     on_value: 
+      - delay: 500ms
       - script.execute: update_main
   - platform: homeassistant
     id: music_playerstate
@@ -88,29 +111,56 @@ script:
       - lambda: |-
           // player state
           if (strcmp(id(music_playerstate).state.c_str(), "off") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_off), ImageAlign::TOP_LEFT, id(orange));
+              id(main_display).image(x, 1+y, id(icon_music_off), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
           } else if (strcmp(id(music_playerstate).state.c_str(), "on") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_on), ImageAlign::TOP_LEFT, id(orange));
+              id(main_display).image(x, 1+y, id(icon_music_on), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
           } else if (strcmp(id(music_playerstate).state.c_str(), "idle") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_idle), ImageAlign::TOP_LEFT, id(orange));
+              id(main_display).image(x, 1+y, id(icon_music_idle), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
           } else if (strcmp(id(music_playerstate).state.c_str(), "playing") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_play), ImageAlign::TOP_LEFT, id(orange));
+              id(main_display).image(x, 1+y, id(icon_music_play), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
           } else if (strcmp(id(music_playerstate).state.c_str(), "paused") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(orange));
+              id(main_display).image(x, 1+y, id(icon_music_pause), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
           } else if (strcmp(id(music_playerstate).state.c_str(), "standby") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_standby), ImageAlign::TOP_LEFT, id(orange));
+              id(main_display).image(x, 1+y, id(icon_music_standby), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
           } else if (strcmp(id(music_playerstate).state.c_str(), "buffering") == 0) {
-              id(main_display).image(x, 1+y, id(icon_music_buffering), ImageAlign::TOP_LEFT, id(orange));
+              id(main_display).image(x, 1+y, id(icon_music_buffering), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
           }
           //
           // album
-          id(main_display).image(75+3+x, 4+y, id(icon_music_album), ImageAlign::TOP_LEFT, id(orange));
-          id(main_display).print(75+25+x, 0+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_album).state.c_str());
+          id(main_display).image(75+3+x, 4+y, id(icon_music_album), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
+          id(main_display).print(75+25+x, 0+y, id(font_arial20), id(music_card_text_color), TextAlign::TOP_LEFT , id(music_album).state.c_str());
           //
           // artist
-          id(main_display).image(75+3+x, 30+y, id(icon_music_artist), ImageAlign::TOP_LEFT, id(orange));
-          id(main_display).print(75+25+x, 26+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_artist).state.c_str()); 
+          id(main_display).image(75+3+x, 30+y, id(icon_music_artist), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
+          id(main_display).print(75+25+x, 26+y, id(font_arial20), id(music_card_text_color), TextAlign::TOP_LEFT , id(music_artist).state.c_str()); 
           //
           // song title
-          id(main_display).image(75+3+x, 56+y, id(icon_music_songtitle), ImageAlign::TOP_LEFT, id(orange));
-          id(main_display).print(75+25+x, 52+y, id(font_arial20), id(white), TextAlign::TOP_LEFT , id(music_title).state.c_str()); 
+          id(main_display).image(75+3+x, 56+y, id(icon_music_songtitle), ImageAlign::TOP_LEFT, id(music_card_icon_main_color));
+          id(main_display).print(75+25+x, 52+y, id(font_arial20), id(music_card_text_color), TextAlign::TOP_LEFT , id(music_title).state.c_str());
+  - id: music_card_bar
+    parameters:
+      type: str
+    then:
+      - lambda: |-
+          if (strcmp(type, "volume_up") == 0) { // button "volume_up"
+              id(main_display).image(80, 2, id(icon_music_vol_up), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+          } else if (strcmp(type, "volume_down") == 0) { // button "volume_down"
+              id(main_display).image(80, 2, id(icon_music_vol_down), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+          } else if (strcmp(type, "next") == 0) { // button "next"
+              id(main_display).image(80, 2, id(icon_music_next), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+          } else if (strcmp(type, "prev") == 0) { // button "prev"
+              id(main_display).image(80, 2, id(icon_music_prev), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+          } else if (strcmp(type, "playpause") == 0) { // button "playpause"
+            if (strcmp(id(music_playerstate).state.c_str(), "playing") == 0) {
+                id(main_display).image(80, 2, id(icon_music_pause), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+            } else {
+                id(main_display).image(80, 2, id(icon_music_play), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+            }
+          } else if (strcmp(type, "power") == 0) { // button "power"
+            if (strcmp(id(music_playerstate).state.c_str(), "off") == 0) {
+                id(main_display).image(80, 2, id(icon_music_off), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+            } else {
+                id(main_display).image(80, 2, id(icon_music_on), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
+            }
+          }
+ 
