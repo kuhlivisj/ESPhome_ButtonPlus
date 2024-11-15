@@ -7,7 +7,6 @@
 ##############################################
 
 script:
-script:
   - id: update_bars
     then:
       - lambda: |-
