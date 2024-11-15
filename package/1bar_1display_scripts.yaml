@@ -7,6 +7,30 @@
 ##############################################
 
 script:
+script:
+  - id: update_bars
+    then:
+      - lambda: |-
+            // update display left:
+            id(display_bar1_left).turn_on();
+            id(bar_display).set_rotation(270);
+            id(bar1_left_page1).execute();
+            id(bar_display).update();
+            id(display_bar1_left).turn_off();
+            // update display right:
+            id(bar_display).set_rotation(90);
+            id(bar1_right_page1).execute();
+            id(display_bar1_right).turn_on();
+            id(bar_display).update();
+            id(display_bar1_right).turn_off();
+  - id: bar1_left_page1
+    then:
+      - lambda: |-
+            id(bar_display).image(80, 0, id(icon_temp_inside), ImageAlign::TOP_CENTER, id(orange));
+  - id: bar1_right_page1
+    then:
+      - lambda: |-
+            id(bar_display).image(80, 0, id(icon_temp_outside), ImageAlign::TOP_CENTER, id(orange));
   - id: update_main
     then:
       - component.update: main_display

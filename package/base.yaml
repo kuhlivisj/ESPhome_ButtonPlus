@@ -34,7 +34,7 @@ output:
     pin: GPIO46
     id: displays_mini_backlight_pwm
     inverted: True
-    max_power: 0.4
+    max_power: 0.6
     frequency: 500Hz
 
 sensor:

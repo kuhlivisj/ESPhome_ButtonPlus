@@ -94,6 +94,26 @@ light:
         from: 3
         to: 3
 
+output:
+  - id: display_bar1_left
+    platform: gpio
+    internal: true
+    pin:
+      mcp23xxx: base_J3
+      number: 5
+      mode:
+        output: true
+      inverted: false
+  - id: display_bar1_right
+    platform: gpio
+    internal: true
+    pin:
+      mcp23xxx: base_J3
+      number: 1
+      mode:
+        output: true
+      inverted: false
+
 display:
   ####################
   ### Main Display ###
@@ -121,7 +141,7 @@ display:
   ##################
   ### BAR module ###
   ##################
-  - id: bar1_display_left
+  - id: bar_display
     platform: ili9xxx
     model: ST7735
     color_order: bgr
@@ -129,37 +149,9 @@ display:
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 5
-      mode:
-        output: true
-      inverted: false
     invert_colors: false
     show_test_card: false
     dimensions: 
       height: 160
       width: 80
       offset_width: 24
-    rotation: 270
-  - id: bar1_display_right
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    update_interval: never
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90
