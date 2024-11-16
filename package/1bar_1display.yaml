@@ -115,24 +115,6 @@ light:
         from: 3
         to: 3
 
-output:
-  - id: display_bar1_left
-    platform: gpio
-    pin:
-      mcp23xxx: base_J3
-      number: 5
-      mode:
-        output: true
-      inverted: false
-  - id: display_bar1_right
-    platform: gpio
-    pin:
-      mcp23xxx: base_J3
-      number: 1
-      mode:
-        output: true
-      inverted: false
-
 display:
   ####################
   ### Main Display ###
