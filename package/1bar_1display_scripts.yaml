@@ -6,18 +6,22 @@
 ##                                          ##
 ##############################################
 
+globals:
+  - id: cs_pin
+    type: GPIOPin*
+
 script:
   - id: update_bars
     then:
       - lambda: |-
             // update display left:
-            auto cs_pin = id(display_bar1_left).get_pin();
+            id(cs_pin) = new GPIOPin(id(display_bar1_left));
             id(bar_display).set_cs_pin(id(((cs_pin)));
             id(bar_display).set_rotation(DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
             id(bar1_left_page1).execute();
             id(bar_display).update();
             // update display right:
-            auto cs_pin = id(display_bar1_right).get_pin();
+            id(cs_pin) = new GPIOPin(id(display_bar1_right));
             id(bar_display).set_cs_pin(id((cs_pin)));
             id(bar_display).set_rotation(DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
             id(bar1_right_page1).execute();
