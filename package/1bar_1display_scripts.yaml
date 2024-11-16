@@ -11,21 +11,17 @@ script:
     then:
       - lambda: |-
             // update display left:
-            id(display_bar1_left).turn_on();
-            id(display_bar1_left).update();
+            id(display_bar1_left).write_state(true);
             id(bar_display).set_rotation(DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
             id(bar1_left_page1).execute();
             id(bar_display).update();
-            id(display_bar1_left).turn_off();
-            id(display_bar1_left).update();
+            id(display_bar1_left).write_state(false);
             // update display right:
-            id(bar1_right_page1).execute();
-            id(bar1_right_page1).update();
+            id(display_bar1_right).write_state(true);
             id(bar_display).set_rotation(DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
-            id(display_bar1_right).turn_on();
+            id(bar1_right_page1).execute();
             id(bar_display).update();
-            id(display_bar1_right).turn_off();
-            id(display_bar1_right).update();
+            id(display_bar1_right).write_state(false);
   - id: bar1_left_page1
     then:
       - lambda: |-
