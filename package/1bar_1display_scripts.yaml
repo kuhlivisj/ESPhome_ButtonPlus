@@ -6,26 +6,35 @@
 ##                                          ##
 ##############################################
 
-globals:
-  - id: cs_pin
-    type: GPIOPin*
+# globals:
+#   - id: cs_pin
+#     type: GPIOPin*
 
 script:
-  - id: update_bars
+  - id: update_display_1
     then:
       - lambda: |-
-            // update display left:
-            id(cs_pin) = new GPIOPin(id(display_bar1_left));
-            id(bar_display).set_cs_pin(id(((cs_pin)));
-            id(bar_display).set_rotation(DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
-            id(bar1_left_page1).execute();
-            id(bar_display).update();
-            // update display right:
-            id(cs_pin) = new GPIOPin(id(display_bar1_right));
-            id(bar_display).set_cs_pin(id((cs_pin)));
-            id(bar_display).set_rotation(DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
-            id(bar1_right_page1).execute();
-            id(bar_display).update();
+          id(cs_pin_3).write(false);  // CS actief voor Display 1
+          id(cs_pin_4).write(true);
+          // id(cs_pin_3).write(true);
+          // id(cs_pin_4).write(true);
+
+          id(bar1_left_page1).execute()
+          id(bar_display).update();
+          delay(10);  // Optioneel voor stabiliteit
+          id(cs_pin_1).write(true);  // CS inactief na update
+  - id: update_display_2
+    then:
+      - lambda: |-
+          id(cs_pin_3).write(true);
+          id(cs_pin_4).write(false);  // CS actief voor Display 2
+          // id(cs_pin_3).write(true);
+          // id(cs_pin_4).write(true);
+
+          id(bar1_right_page1).execute()
+          id(bar_display).update();
+          delay(10);  // Optioneel voor stabiliteit
+          id(cs_pin_2).write(true);  // CS inactief na update
   - id: bar1_left_page1
     then:
       - lambda: |-
@@ -40,7 +49,10 @@ script:
   - id: update_all
     then:
       - component.update: main_display
-      - component.update: bar_display
+      - script.execute: update_display_1
+      - script.execute: update_display_2
+      # - script.execute: update_display_3
+      # - script.execute: update_display_4
   - id: next_page_main
     then: 
       - display.page.show_next: main_display
@@ -48,7 +60,7 @@ script:
   - id: next_page_all
     then: 
       - display.page.show_next: main_display
-      - display.page.show_next: bar_display
+      # - display.page.show_next: bar_display
       - script.execute: update_all
   - id: prev_page_main
     then: 
@@ -57,5 +69,5 @@ script:
   - id: prev_page_all
     then: 
       - display.page.show_previous: main_display
-      - display.page.show_previous: bar_display
+      # - display.page.show_previous: bar_display
       - script.execute: update_all

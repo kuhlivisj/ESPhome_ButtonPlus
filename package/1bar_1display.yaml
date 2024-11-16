@@ -18,6 +18,27 @@ mcp23008:
     i2c_id: buttons
     address: 0x23
 
+output:
+  # - platform: mcp23xxx
+  #   mcp23xxx_id: base_J2
+  #   pin: 1
+  #   id: cs_pin_1
+
+  # - platform: mcp23xxx
+  #   mcp23xxx_id: base_J2
+  #   pin: 5
+  #   id: cs_pin_2
+
+  - platform: mcp23xxx
+    mcp23xxx_id: base_J3
+    pin: 1
+    id: cs_pin_3
+
+  - platform: mcp23xxx
+    mcp23xxx_id: base_J3
+    pin: 5
+    id: cs_pin_4
+
 binary_sensor:
   ############################
   ### Buttons Main Display ###
@@ -139,14 +160,26 @@ display:
   ##################
   ### BAR module ###
   ##################
+  # - id: bar_display
+  #   platform: ili9xxx
+  #   model: ST7735
+  #   color_order: bgr
+  #   update_interval: never
+  #   dc_pin: 
+  #     number: GPIO37
+  #     allow_other_uses: true
+  #   invert_colors: false
+  #   show_test_card: false
+  #   dimensions: 
+  #     height: 160
+  #     width: 80
+  #     offset_width: 24
   - id: bar_display
     platform: ili9xxx
     model: ST7735
     color_order: bgr
     update_interval: never
-    dc_pin: 
-      number: GPIO37
-      allow_other_uses: true
+    dc_pin: GPIO37
     invert_colors: false
     show_test_card: false
     dimensions: 
