@@ -14,27 +14,27 @@ script:
   - id: update_display_1
     then:
       - lambda: |-
-          id(cs_pin_3).write(false);  // CS actief voor Display 1
-          id(cs_pin_4).write(true);
+          id(cs_pin_3).trun_off();  // CS actief voor Display 1
+          id(cs_pin_4).turn_on();
           // id(cs_pin_3).write(true);
           // id(cs_pin_4).write(true);
 
           id(bar1_left_page1).execute()
           id(bar_display).update();
           delay(10);  // Optioneel voor stabiliteit
-          id(cs_pin_3).write(true);  // CS inactief na update
+          id(cs_pin_3).turn_on();  // CS inactief na update
   - id: update_display_2
     then:
       - lambda: |-
-          id(cs_pin_3).write(true);
-          id(cs_pin_4).write(false);  // CS actief voor Display 2
+          id(cs_pin_3).turn_on();
+          id(cs_pin_4).trun_off();  // CS actief voor Display 2
           // id(cs_pin_3).write(true);
           // id(cs_pin_4).write(true);
 
           id(bar1_right_page1).execute()
           id(bar_display).update();
           delay(10);  // Optioneel voor stabiliteit
-          id(cs_pin_4).write(true);  // CS inactief na update
+          id(cs_pin_4).turn_on();  // CS inactief na update
   - id: bar1_left_page1
     then:
       - lambda: |-
