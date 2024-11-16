@@ -6,9 +6,17 @@
 ##                                          ##
 ##############################################
 
-# globals:
-#   - id: cs_pin
-#     type: GPIOPin*
+image:
+  - file: mdi:lightbulb
+    id: lightbulb_script
+    resize: 80x80
+  - file: mdi:alert
+    id: alert_script
+    resize: 80x80
+
+color:
+  - id: orange_script
+    hex: FF7F00
 
 script:
   - id: update_display_1
@@ -38,11 +46,11 @@ script:
   - id: bar1_left_page1
     then:
       - lambda: |-
-            id(bar_display).image(80, 0, id(icon_temp_inside), ImageAlign::TOP_CENTER, id(orange));
+            id(bar_display).image(80, 0, id(lightbulb_script), ImageAlign::TOP_CENTER, id(orange_script));
   - id: bar1_right_page1
     then:
       - lambda: |-
-            id(bar_display).image(80, 0, id(icon_temp_outside), ImageAlign::TOP_CENTER, id(orange));
+            id(bar_display).image(80, 0, id(alert_script), ImageAlign::TOP_CENTER, id(orange_script));
   - id: update_main
     then:
       - component.update: main_display
