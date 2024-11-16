@@ -102,7 +102,7 @@ output:
       number: 5
       mode:
         output: true
-      inverted: true
+      inverted: false
   - id: display_bar1_right
     platform: gpio
     pin:
@@ -110,7 +110,7 @@ output:
       number: 1
       mode:
         output: true
-      inverted: true
+      inverted: false
 
 display:
   ####################
