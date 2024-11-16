@@ -179,7 +179,9 @@ display:
     model: ST7735
     color_order: bgr
     update_interval: never
-    dc_pin: GPIO37
+    dc_pin: 
+      number: GPIO37
+      allow_other_uses: true
     invert_colors: false
     show_test_card: false
     dimensions: 
