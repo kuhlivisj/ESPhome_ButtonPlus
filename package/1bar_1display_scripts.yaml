@@ -14,7 +14,7 @@ script:
   - id: update_display_1
     then:
       - lambda: |-
-          id(cs_pin_3).trun_off();  // CS actief voor Display 1
+          id(cs_pin_3).turn_off();  // CS actief voor Display 1
           id(cs_pin_4).turn_on();
           // id(cs_pin_3).write(true);
           // id(cs_pin_4).write(true);
@@ -27,7 +27,7 @@ script:
     then:
       - lambda: |-
           id(cs_pin_3).turn_on();
-          id(cs_pin_4).trun_off();  // CS actief voor Display 2
+          id(cs_pin_4).turn_off();  // CS actief voor Display 2
           // id(cs_pin_3).write(true);
           // id(cs_pin_4).write(true);
 
