@@ -10,6 +10,18 @@ packages:
     base: !include base.yaml
     scripts: !include 3bar_1display_scripts.yaml
 
+esphome:
+  on_boot:
+    priority: -100
+    then:
+      - script.execute: setup_bar_displays
+      - script.execute: update_bar1_left
+      - script.execute: update_bar1_right
+      - script.execute: update_bar2_left
+      - script.execute: update_bar2_right
+      - script.execute: update_bar3_left
+      - script.execute: update_bar3_right
+
 mcp23008:
   - id: 'base_J0'
     i2c_id: buttons
