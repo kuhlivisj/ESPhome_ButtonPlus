@@ -12,94 +12,94 @@ script:
 ######################
   - id: update_bar1_left
     then:
-      - lambda: |-
-          id(cs_pin_bar1_left).turn_on();   //  <<
-          id(cs_pin_bar1_right).turn_off();
-          id(cs_pin_bar2_left).turn_off();
-          id(cs_pin_bar2_right).turn_off();
-          id(cs_pin_bar3_left).turn_off();
-          id(cs_pin_bar3_right).turn_off();
-          id(bar_display).clear();
-          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
-          //id(bar1_left_draw).execute();
-          id(bar_display).update();
-          delay(1);
-          id(cs_pin_bar1_left).turn_off();
+      # - lambda: |-
+      #     id(cs_pin_bar1_left).turn_on();   //  <<
+      #     id(cs_pin_bar1_right).turn_off();
+      #     id(cs_pin_bar2_left).turn_off();
+      #     id(cs_pin_bar2_right).turn_off();
+      #     id(cs_pin_bar3_left).turn_off();
+      #     id(cs_pin_bar3_right).turn_off();
+      #     id(bar_display).clear();
+      #     id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+      #     //id(bar1_left_draw).execute();
+      #     id(bar_display).update();
+      #     delay(1);
+      #     id(cs_pin_bar1_left).turn_off();
   - id: update_bar1_right
     then:
-      - lambda: |-
-          id(cs_pin_bar1_left).turn_off();
-          id(cs_pin_bar1_right).turn_on();  // << 
-          id(cs_pin_bar2_left).turn_off();
-          id(cs_pin_bar2_right).turn_off();
-          id(cs_pin_bar3_left).turn_off();
-          id(cs_pin_bar3_right).turn_off();
-          id(bar_display).clear();
-          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
-          //id(bar1_left_draw).execute();
-          id(bar_display).update();
-          delay(1);
-          id(cs_pin_bar1_right).turn_off();
+      # - lambda: |-
+      #     id(cs_pin_bar1_left).turn_off();
+      #     id(cs_pin_bar1_right).turn_on();  // << 
+      #     id(cs_pin_bar2_left).turn_off();
+      #     id(cs_pin_bar2_right).turn_off();
+      #     id(cs_pin_bar3_left).turn_off();
+      #     id(cs_pin_bar3_right).turn_off();
+      #     id(bar_display).clear();
+      #     id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+      #     //id(bar1_left_draw).execute();
+      #     id(bar_display).update();
+      #     delay(1);
+      #     id(cs_pin_bar1_right).turn_off();
   - id: update_bar2_left
     then:
-      - lambda: |-
-          id(cs_pin_bar1_left).turn_off();
-          id(cs_pin_bar1_right).turn_off();
-          id(cs_pin_bar2_left).turn_on();   // <<
-          id(cs_pin_bar2_right).turn_off();
-          id(cs_pin_bar3_left).turn_off();
-          id(cs_pin_bar3_right).turn_off();
-          id(bar_display).clear();
-          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
-          //id(bar2_left_draw).execute();
-          id(bar_display).update();
-          delay(1);
-          id(cs_pin_bar2_left).turn_off();
+      # - lambda: |-
+      #     id(cs_pin_bar1_left).turn_off();
+      #     id(cs_pin_bar1_right).turn_off();
+      #     id(cs_pin_bar2_left).turn_on();   // <<
+      #     id(cs_pin_bar2_right).turn_off();
+      #     id(cs_pin_bar3_left).turn_off();
+      #     id(cs_pin_bar3_right).turn_off();
+      #     id(bar_display).clear();
+      #     id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+      #     //id(bar2_left_draw).execute();
+      #     id(bar_display).update();
+      #     delay(1);
+      #     id(cs_pin_bar2_left).turn_off();
   - id: update_bar2_right
     then:
-      - lambda: |-
-          id(cs_pin_bar1_left).turn_off();
-          id(cs_pin_bar1_right).turn_off();
-          id(cs_pin_bar2_left).turn_off();
-          id(cs_pin_bar2_right).turn_on();  // <<
-          id(cs_pin_bar3_left).turn_off();
-          id(cs_pin_bar3_right).turn_off();
-          id(bar_display).clear();
-          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
-          //id(bar2_right_draw).execute();
-          id(bar_display).update();
-          delay(1);
-          id(cs_pin_bar2_right).turn_off();
+      # - lambda: |-
+      #     id(cs_pin_bar1_left).turn_off();
+      #     id(cs_pin_bar1_right).turn_off();
+      #     id(cs_pin_bar2_left).turn_off();
+      #     id(cs_pin_bar2_right).turn_on();  // <<
+      #     id(cs_pin_bar3_left).turn_off();
+      #     id(cs_pin_bar3_right).turn_off();
+      #     id(bar_display).clear();
+      #     id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+      #     //id(bar2_right_draw).execute();
+      #     id(bar_display).update();
+      #     delay(1);
+      #     id(cs_pin_bar2_right).turn_off();
   - id: update_bar3_left
     then:
-      - lambda: |-
-          id(cs_pin_bar1_left).turn_off();
-          id(cs_pin_bar1_right).turn_off();
-          id(cs_pin_bar2_left).turn_off();
-          id(cs_pin_bar2_right).turn_off();
-          id(cs_pin_bar3_left).turn_on();   // <<
-          id(cs_pin_bar3_right).turn_off();
-          id(bar_display).clear();
-          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
-          //id(bar3_left_draw).execute();
-          id(bar_display).update();
-          delay(1);
-          id(cs_pin_bar3_left).turn_off();
+      # - lambda: |-
+      #     id(cs_pin_bar1_left).turn_off();
+      #     id(cs_pin_bar1_right).turn_off();
+      #     id(cs_pin_bar2_left).turn_off();
+      #     id(cs_pin_bar2_right).turn_off();
+      #     id(cs_pin_bar3_left).turn_on();   // <<
+      #     id(cs_pin_bar3_right).turn_off();
+      #     id(bar_display).clear();
+      #     id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+      #     //id(bar3_left_draw).execute();
+      #     id(bar_display).update();
+      #     delay(1);
+      #     id(cs_pin_bar3_left).turn_off();
   - id: update_bar3_right
     then:
-      - lambda: |-
-          id(cs_pin_bar1_left).turn_off();
-          id(cs_pin_bar1_right).turn_off();
-          id(cs_pin_bar2_left).turn_off();
-          id(cs_pin_bar2_right).turn_off();
-          id(cs_pin_bar3_left).turn_off();
-          id(cs_pin_bar3_right).turn_on();  // <<
-          id(bar_display).clear();
-          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
-          //id(bar3_right_draw).execute();
-          id(bar_display).update();
-          delay(1);
-          id(cs_pin_bar3_right).turn_off();
+      # - lambda: |-
+      #     id(cs_pin_bar1_left).turn_off();
+      #     id(cs_pin_bar1_right).turn_off();
+      #     id(cs_pin_bar2_left).turn_off();
+      #     id(cs_pin_bar2_right).turn_off();
+      #     id(cs_pin_bar3_left).turn_off();
+      #     id(cs_pin_bar3_right).turn_on();  // <<
+      #     id(bar_display).clear();
+      #     id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+      #     //id(bar3_right_draw).execute();
+      #     id(bar_display).update();
+      #     delay(1);
+      #     id(cs_pin_bar3_right).turn_off();
 ####################
 ### draw scripts ###
 ####################
@@ -136,12 +136,12 @@ script:
   - id: update_all
     then:
       - component.update: main_display
-      - component.update: bar1_display_left
-      - component.update: bar1_display_right
-      - component.update: bar2_display_left
-      - component.update: bar2_display_right
-      - component.update: bar3_display_left
-      - component.update: bar3_display_right
+      - script.execute: update_bar1_left
+      - script.execute: update_bar1_right
+      - script.execute: update_bar2_left
+      - script.execute: update_bar2_right
+      - script.execute: update_bar3_left
+      - script.execute: update_bar3_right
   - id: next_page_main
     then: 
       - display.page.show_next: main_display

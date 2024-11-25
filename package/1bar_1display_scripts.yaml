@@ -60,8 +60,8 @@ script:
   - id: update_all
     then:
       - component.update: main_display
-      - component.update: bar1_display_left
-      - component.update: bar1_display_right
+      - script.execute: update_bar1_left
+      - script.execute: update_bar1_right
   - id: next_page_main
     then: 
       - display.page.show_next: main_display
