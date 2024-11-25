@@ -6,61 +6,62 @@
 ##                                          ##
 ##############################################
 
-image:
-  - file: mdi:lightbulb
-    id: lightbulb_script
-    resize: 80x80
-  - file: mdi:alert
-    id: alert_script
-    resize: 80x80
-
-color:
-  - id: orange_script
-    hex: FF7F00
-
 script:
-  - id: update_display_1
+######################
+### update scripts ###
+######################
+  - id: update_bar1_left
     then:
       - lambda: |-
-          id(cs_pin_3).turn_on();  // CS actief voor Display 1
-          id(cs_pin_4).turn_off();
-          // id(cs_pin_3).write(true);
-          // id(cs_pin_4).write(true);
-
-          id(bar1_left_page1).execute();
+          id(cs_pin_bar1_left).turn_on();   //  <<
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+          id(bar1_left_draw).execute();
           id(bar_display).update();
-          delay(10);  // Optioneel voor stabiliteit
-          id(cs_pin_3).turn_off();  // CS inactief na update
-  - id: update_display_2
+          delay(1);
+          id(cs_pin_bar1_left).turn_off();
+  - id: update_bar1_right
     then:
       - lambda: |-
-          id(cs_pin_3).turn_off();
-          id(cs_pin_4).turn_on();  // CS actief voor Display 2
-          // id(cs_pin_3).write(true);
-          // id(cs_pin_4).write(true);
-
-          id(bar1_right_page1).execute();
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_on();  // << 
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+          id(bar1_left_draw).execute();
           id(bar_display).update();
-          delay(10);  // Optioneel voor stabiliteit
-          id(cs_pin_4).turn_off();  // CS inactief na update
-  - id: bar1_left_page1
+          delay(1);
+          id(cs_pin_bar1_right).turn_off();
+####################
+### draw scripts ###
+####################
+  - id: bar1_left_draw
     then:
       - lambda: |-
-            id(bar_display).image(80, 0, id(lightbulb_script), ImageAlign::TOP_CENTER, id(orange_script));
-  - id: bar1_right_page1
+          ESP_LOGD("TODO", "You need to extend the bar1_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_left_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+  - id: bar1_right_draw
     then:
       - lambda: |-
-            id(bar_display).image(80, 0, id(alert_script), ImageAlign::TOP_CENTER, id(orange_script));
+          ESP_LOGD("TODO", "You need to extend the bar1_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_right_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+##############################
+### other handling scripts ###
+##############################
   - id: update_main
     then:
       - component.update: main_display
   - id: update_all
     then:
       - component.update: main_display
-      - script.execute: update_display_1
-      - script.execute: update_display_2
-      # - script.execute: update_display_3
-      # - script.execute: update_display_4
+      - component.update: bar1_display_left
+      - component.update: bar1_display_right
   - id: next_page_main
     then: 
       - display.page.show_next: main_display
@@ -68,7 +69,6 @@ script:
   - id: next_page_all
     then: 
       - display.page.show_next: main_display
-      # - display.page.show_next: bar_display
       - script.execute: update_all
   - id: prev_page_main
     then: 
@@ -77,5 +77,4 @@ script:
   - id: prev_page_all
     then: 
       - display.page.show_previous: main_display
-      # - display.page.show_previous: bar_display
       - script.execute: update_all

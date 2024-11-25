@@ -10,6 +10,14 @@ packages:
     base: !include base.yaml
     scripts: !include 1bar_1display_scripts.yaml
 
+esphome:
+  on_boot:
+    priority: -100
+    then:
+      - script.execute: setup_bar_displays
+      - script.execute: update_bar1_left
+      - script.execute: update_bar1_right
+
 mcp23008:
   - id: 'base_J2'
     i2c_id: buttons
@@ -17,27 +25,6 @@ mcp23008:
   - id: 'base_J3'
     i2c_id: buttons
     address: 0x23
-
-# output:
-#   # - platform: mcp23xxx
-#   #   mcp23xxx_id: base_J2
-#   #   pin: 1
-#   #   id: cs_pin_1
-
-#   # - platform: mcp23xxx
-#   #   mcp23xxx_id: base_J2
-#   #   pin: 5
-#   #   id: cs_pin_2
-
-#   - platform: mcp23xxx
-#     mcp23xxx_id: base_J3
-#     pin: 1
-#     id: cs_pin_3
-
-#   - platform: mcp23xxx
-#     mcp23xxx_id: base_J3
-#     pin: 5
-#     id: cs_pin_4
 
 binary_sensor:
   ############################
@@ -116,7 +103,10 @@ light:
         to: 3
 
 output:
-  - id: cs_pin_3
+  #######################################
+  ### CS pins to control BAR Displays ###
+  #######################################
+  - id: cs_pin_bar1_left
     platform: gpio
     pin:
       mcp23xxx: base_J3
@@ -124,7 +114,7 @@ output:
       mode:
         output: true
       inverted: false
-  - id: cs_pin_4
+  - id: cs_pin_bar1_right
     platform: gpio
     pin:
       mcp23xxx: base_J3
@@ -160,20 +150,6 @@ display:
   ##################
   ### BAR module ###
   ##################
-  # - id: bar_display
-  #   platform: ili9xxx
-  #   model: ST7735
-  #   color_order: bgr
-  #   update_interval: never
-  #   dc_pin: 
-  #     number: GPIO37
-  #     allow_other_uses: true
-  #   invert_colors: false
-  #   show_test_card: false
-  #   dimensions: 
-  #     height: 160
-  #     width: 80
-  #     offset_width: 24
   - id: bar_display
     platform: ili9xxx
     model: ST7735

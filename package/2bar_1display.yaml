@@ -148,6 +148,43 @@ light:
         from: 7
         to: 7
 
+output:
+  #######################################
+  ### CS pins to control BAR Displays ###
+  #######################################
+  - id: cs_pin_bar1_left
+    platform: gpio
+    pin:
+      mcp23xxx: base_J1
+      number: 5
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar1_right
+    platform: gpio
+    pin:
+      mcp23xxx: base_J1
+      number: 1
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar2_left
+    platform: gpio
+    pin:
+      mcp23xxx: base_J2
+      number: 5
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar2_right
+    platform: gpio
+    pin:
+      mcp23xxx: base_J2
+      number: 1
+      mode:
+        output: true
+      inverted: true
+
 display:
   ####################
   ### Main Display ###
@@ -172,10 +209,10 @@ display:
       height: 240
       width: 320
     rotation: 180
-  ####################
-  ### BAR module 1 ###
-  ####################
-  - id: bar1_display_left
+  ###################
+  ### BAR modules ###
+  ###################
+  - id: bar_display
     platform: ili9xxx
     model: ST7735
     color_order: bgr
@@ -183,82 +220,9 @@ display:
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J2
-      number: 5
-      mode:
-        output: true
-      inverted: false
     invert_colors: false
     show_test_card: false
     dimensions: 
       height: 160
       width: 80
       offset_width: 24
-    rotation: 270
-  - id: bar1_display_right
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    update_interval: never
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J2
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90
-  ####################
-  ### BAR module 2 ###
-  ####################
-  - id: bar2_display_left
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    update_interval: never
-    dc_pin: 
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 5
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 270
-  - id: bar2_display_right
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    update_interval: never
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90

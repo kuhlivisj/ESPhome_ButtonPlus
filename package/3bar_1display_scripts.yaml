@@ -7,6 +7,129 @@
 ##############################################
 
 script:
+######################
+### update scripts ###
+######################
+  - id: update_bar1_left
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_on();   //  <<
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+          id(bar1_left_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar1_left).turn_off();
+  - id: update_bar1_right
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_on();  // << 
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+          id(bar1_left_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar1_right).turn_off();
+  - id: update_bar2_left
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_on();   // <<
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+          id(bar2_left_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar2_left).turn_off();
+  - id: update_bar2_right
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_on();  // <<
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+          id(bar2_right_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar2_right).turn_off();
+  - id: update_bar3_left
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_on();   // <<
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+          id(bar3_left_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar3_left).turn_off();
+  - id: update_bar3_right
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_on();  // <<
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+          id(bar3_right_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar3_right).turn_off();
+####################
+### draw scripts ###
+####################
+  - id: bar1_left_draw
+    then:
+      - lambda: |-
+          ESP_LOGD("TODO", "You need to extend the bar1_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_left_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+  - id: bar1_right_draw
+    then:
+      - lambda: |-
+          ESP_LOGD("TODO", "You need to extend the bar1_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_right_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+  - id: bar2_left_draw
+    then:
+      - lambda: |-
+          ESP_LOGD("TODO", "You need to extend the bar2_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar2_left_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+  - id: bar2_right_draw
+    then:
+      - lambda: |-
+          ESP_LOGD("TODO", "You need to extend the bar2_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar2_right_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+  - id: bar3_left_draw
+    then:
+      - lambda: |-
+          ESP_LOGD("TODO", "You need to extend the bar3_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar3_left_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+  - id: bar3_right_draw
+    then:
+      - lambda: |-
+          ESP_LOGD("TODO", "You need to extend the bar3_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar3_right_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
+##############################
+### other handling scripts ###
+##############################
   - id: update_main
     then:
       - component.update: main_display
@@ -26,12 +149,6 @@ script:
   - id: next_page_all
     then: 
       - display.page.show_next: main_display
-      - display.page.show_next: bar1_display_left
-      - display.page.show_next: bar1_display_right
-      - display.page.show_next: bar2_display_left
-      - display.page.show_next: bar2_display_right
-      - display.page.show_next: bar3_display_left
-      - display.page.show_next: bar3_display_right
       - script.execute: update_all
   - id: prev_page_main
     then: 
@@ -40,10 +157,4 @@ script:
   - id: prev_page_all
     then: 
       - display.page.show_previous: main_display
-      - display.page.show_previous: bar1_display_left
-      - display.page.show_previous: bar1_display_right
-      - display.page.show_previous: bar2_display_left
-      - display.page.show_previous: bar2_display_right
-      - display.page.show_previous: bar3_display_left
-      - display.page.show_previous: bar3_display_right
       - script.execute: update_all
