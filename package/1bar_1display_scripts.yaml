@@ -40,6 +40,19 @@ script:
           id(bar_display).update();
           delay(1);
           id(cs_pin_bar1_right).turn_off();
+##################################
+### setup mini display scripts ###
+##################################
+  - id: setup_bar_displays
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_on();
+          id(bar_display).setup();
+          id(cs_pin_bar1_left).turn_off();
+          delay(5);
+          id(cs_pin_bar1_right).turn_on();
+          id(bar_display).setup();
+          id(cs_pin_bar1_right).turn_off();
 ####################
 ### draw scripts ###
 ####################
