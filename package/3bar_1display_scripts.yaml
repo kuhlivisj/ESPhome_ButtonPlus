@@ -108,26 +108,27 @@ script:
       - lambda: |-
           id(cs_pin_bar1_left).turn_on();
           id(bar_display).setup();
-          id(cs_pin_bar1_left).turn_off();
           delay(5);
+          id(cs_pin_bar1_left).turn_off();
           id(cs_pin_bar1_right).turn_on();
           id(bar_display).setup();
-          id(cs_pin_bar1_right).turn_off();
           delay(5);
+          id(cs_pin_bar1_right).turn_off();
           id(cs_pin_bar2_left).turn_on();
           id(bar_display).setup();
-          id(cs_pin_bar2_left).turn_off();
           delay(5);
+          id(cs_pin_bar2_left).turn_off();
           id(cs_pin_bar2_right).turn_on();
           id(bar_display).setup();
-          id(cs_pin_bar2_right).turn_off();
           delay(5);
+          id(cs_pin_bar2_right).turn_off();
           id(cs_pin_bar3_left).turn_on();
           id(bar_display).setup();
-          id(cs_pin_bar3_left).turn_off();
           delay(5);
+          id(cs_pin_bar3_left).turn_off();
           id(cs_pin_bar3_right).turn_on();
           id(bar_display).setup();
+          delay(5);
           id(cs_pin_bar3_right).turn_off();
 ####################
 ### draw scripts ###
