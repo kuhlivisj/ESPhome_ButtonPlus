@@ -24,6 +24,12 @@ esphome:
       - script.execute: update_bar3_left
       - script.execute: update_bar3_right
 
+interval:
+  - interval: 1min
+    then:
+      - logger.log: 
+          format: "ESPHome for Button+ v0.1.0_dev"
+
 mcp23008:
   - id: 'base_J0'
     i2c_id: buttons
