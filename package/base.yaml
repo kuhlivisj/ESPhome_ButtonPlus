@@ -23,6 +23,16 @@ spi:
   clk_pin: GPIO36
   mosi_pin: GPIO35
 
+global:
+  - id: nr_of_pages
+    type: int
+    restore_value: no
+    initial_value: '1'
+  - id: actual_page
+    type: int
+    restore_value: no
+    initial_value: '0'
+
 output:
   - platform: ledc
     pin: GPIO3
@@ -68,3 +78,26 @@ light:
 time:
   - platform: homeassistant
     id: datetime
+
+script:
+######################
+### paging scripts ###
+######################
+  - id: next_page
+    then: 
+      - lambda: |-
+          id(actual_page) = id(actual_page) + 1;
+          if(id(actual_page) >= id(nr_of_pages)) {
+            id(actual_page) = 0;
+          }
+      - display.page.show_next: main_display
+      - script.execute: update_all
+  - id: prev_page
+    then: 
+      - lambda: |-
+          id(actual_page) = id(actual_page) - 1;
+          if(id(actual_page) <= 0 {
+            id(actual_page) = id(nr_of_pages);
+          }
+      - display.page.show_previous: main_display
+      - script.execute: update_all

@@ -134,6 +134,7 @@ script:
 ### pre-define draw scripts ###
 ###############################
   - id: bar1_left_draw
+    then:
   - id: bar1_right_draw
     then:
   - id: bar2_left_draw
@@ -159,22 +160,3 @@ script:
       - script.execute: update_bar2_right
       - script.execute: update_bar3_left
       - script.execute: update_bar3_right
-######################
-### paging scripts ###
-######################
-  - id: next_page_main
-    then: 
-      - display.page.show_next: main_display
-      - script.execute: update_main
-  - id: next_page_all
-    then: 
-      - display.page.show_next: main_display
-      - script.execute: update_all
-  - id: prev_page_main
-    then: 
-      - display.page.show_previous: main_display
-      - script.execute: update_main
-  - id: prev_page_all
-    then: 
-      - display.page.show_previous: main_display
-      - script.execute: update_all
