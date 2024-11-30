@@ -15,10 +15,6 @@ script:
       - lambda: |-
           id(cs_pin_bar1_left).turn_on();   //  <<
           id(cs_pin_bar1_right).turn_off();
-          id(cs_pin_bar2_left).turn_off();
-          id(cs_pin_bar2_right).turn_off();
-          id(cs_pin_bar3_left).turn_off();
-          id(cs_pin_bar3_right).turn_off();
           id(bar_display).clear();
           id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
           id(bar1_left_draw).execute();
@@ -30,10 +26,6 @@ script:
       - lambda: |-
           id(cs_pin_bar1_left).turn_off();
           id(cs_pin_bar1_right).turn_on();  // << 
-          id(cs_pin_bar2_left).turn_off();
-          id(cs_pin_bar2_right).turn_off();
-          id(cs_pin_bar3_left).turn_off();
-          id(cs_pin_bar3_right).turn_off();
           id(bar_display).clear();
           id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
           id(bar1_left_draw).execute();
