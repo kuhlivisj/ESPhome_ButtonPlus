@@ -27,8 +27,7 @@ esphome:
 interval:
   - interval: 1min
     then:
-      - logger.log: 
-          format: "ESPHome for Button+ v0.1.0_dev"
+      - logger.log: "ESPHome for Button+ v0.1.0_dev"
 
 mcp23008:
   - id: 'base_J0'
