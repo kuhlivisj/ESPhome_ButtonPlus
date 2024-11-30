@@ -50,18 +50,8 @@ script:
 ####################
   - id: bar1_left_draw
     then:
-      - lambda: |-
-          if (id(show_todos)) {
-            ESP_LOGD("TODO", "You need to extend the bar1_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_left_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
-            id(show_todos) = false;
-          } 
   - id: bar1_right_draw
     then:
-      - lambda: |-
-          if (id(show_todos)) {
-            ESP_LOGD("TODO", "You need to extend the bar1_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_right_draw\n    then:\n      - lambda: |-\n          \\ your draw scripts here!");
-            id(show_todos) = false;
-          } 
 ##############################
 ### other handling scripts ###
 ##############################
