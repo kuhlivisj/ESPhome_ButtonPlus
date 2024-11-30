@@ -26,11 +26,9 @@ spi:
 globals:
   - id: nr_of_pages
     type: int
-    restore_value: no
     initial_value: '1'
   - id: actual_page
     type: int
-    restore_value: no
     initial_value: '0'
 
 output:
