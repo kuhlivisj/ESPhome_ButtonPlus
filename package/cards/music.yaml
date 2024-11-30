@@ -163,4 +163,39 @@ script:
                 id(main_display).image(80, 2, id(icon_music_on), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
             }
           }
- 
+  - id: music_card_vol_up
+    then:
+      - homeassistant.action:
+          action: media_player.volume_up
+          data:
+            entity_id: ${music_card_enity_id}
+  - id: music_card_vol_dowen
+    then:
+      - homeassistant.action:
+          action: media_player.volume_down
+          data:
+            entity_id: ${music_card_enity_id}
+  - id: music_card_next
+    then:
+      - homeassistant.action:
+          action: media_player.media_next_track
+          data:
+            entity_id: ${music_card_enity_id}
+  - id: music_card_prev
+    then:
+      - homeassistant.action:
+          action: media_player.media_previous_track
+          data:
+            entity_id: ${music_card_enity_id}
+  - id: music_card_playpause
+    then:
+      - homeassistant.action:
+          action: media_player.media_play_pause
+          data:
+            entity_id: ${music_card_enity_id}
+  - id: music_card_power
+    then:
+      - homeassistant.action:
+          action: media_player.toggle
+          data:
+            entity_id: ${music_card_enity_id}
