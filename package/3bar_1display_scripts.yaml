@@ -100,9 +100,9 @@ script:
           id(bar_display).update();
           delay(1);
           id(cs_pin_bar3_right).turn_off();
-##################################
-### setup mini display scripts ###
-##################################
+####################################
+### setup mini display's scripts ###
+####################################
   - id: setup_bar_displays
     then:
       - lambda: |-
@@ -130,36 +130,23 @@ script:
           id(bar_display).setup();
           delay(5);
           id(cs_pin_bar3_right).turn_off();
-####################
-### draw scripts ###
-####################
+###############################
+### pre-define draw scripts ###
+###############################
   - id: bar1_left_draw
-    then:
-      - lambda: |-
-          ESP_LOGD("TODO", "You need to extend the bar1_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_left_draw\n    then:\n      - lambda: |-\n          \/\/ your draw scripts here!");
   - id: bar1_right_draw
     then:
-      - lambda: |-
-          ESP_LOGD("TODO", "You need to extend the bar1_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar1_right_draw\n    then:\n      - lambda: |-\n          \/\/ your draw scripts here!");
   - id: bar2_left_draw
     then:
-      - lambda: |-
-          ESP_LOGD("TODO", "You need to extend the bar2_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar2_left_draw\n    then:\n      - lambda: |-\n          \/\/ your draw scripts here!");
   - id: bar2_right_draw
     then:
-      - lambda: |-
-          ESP_LOGD("TODO", "You need to extend the bar2_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar2_right_draw\n    then:\n      - lambda: |-\n          \/\/ your draw scripts here!");
   - id: bar3_left_draw
     then:
-      - lambda: |-
-          ESP_LOGD("TODO", "You need to extend the bar3_left_draw script to draw something on the bar display \n script: \n  - id: !extend bar3_left_draw\n    then:\n      - lambda: |-\n          \/\/ your draw scripts here!");
   - id: bar3_right_draw
     then:
-      - lambda: |-
-          ESP_LOGD("TODO", "You need to extend the bar3_right_draw script to draw something on the bar display \n script: \n  - id: !extend bar3_right_draw\n    then:\n      - lambda: |-\n          \/\/ your draw scripts here!");
-##############################
-### other handling scripts ###
-##############################
+######################
+### update scripts ###
+######################
   - id: update_main
     then:
       - component.update: main_display
@@ -172,6 +159,9 @@ script:
       - script.execute: update_bar2_right
       - script.execute: update_bar3_left
       - script.execute: update_bar3_right
+######################
+### paging scripts ###
+######################
   - id: next_page_main
     then: 
       - display.page.show_next: main_display
