@@ -23,7 +23,7 @@ spi:
   clk_pin: GPIO36
   mosi_pin: GPIO35
 
-global:
+globals:
   - id: nr_of_pages
     type: int
     restore_value: no
