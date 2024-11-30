@@ -88,7 +88,7 @@ script:
           if(id(actual_page) >= id(nr_of_pages)) {
             id(actual_page) = 0;
           }
-      - display.page.show_next: main_display
+      # - display.page.show_next: main_display
       - script.execute: update_all
   - id: prev_page
     then: 
@@ -97,5 +97,5 @@ script:
           if(id(actual_page) <= 0) {
             id(actual_page) = id(nr_of_pages);
           }
-      - display.page.show_previous: main_display
+      # - display.page.show_previous: main_display
       - script.execute: update_all
