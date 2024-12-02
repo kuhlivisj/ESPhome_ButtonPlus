@@ -27,7 +27,7 @@
     * `power`
   
     ```
-    id(music_card_bar).execute('volume_up');
+    id(music_card_bar).execute("volume_up");
     ```
 
 * add actions to the buttons
