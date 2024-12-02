@@ -94,6 +94,6 @@ script:
       - lambda: |-
           id(actual_page) = id(actual_page) - 1;
           if(id(actual_page) < 0) {
-            id(actual_page) = id(nr_of_pages);
+            id(actual_page) = id(nr_of_pages) - 1;
           }
       - script.execute: update_all
