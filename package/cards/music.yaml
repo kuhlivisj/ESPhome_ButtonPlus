@@ -169,7 +169,7 @@ script:
           action: media_player.volume_up
           data:
             entity_id: ${music_card_enity_id}
-  - id: music_card_vol_dowen
+  - id: music_card_vol_down
     then:
       - homeassistant.action:
           action: media_player.volume_down
