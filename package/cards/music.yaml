@@ -41,8 +41,14 @@ image:
   - file: mdi:power-on
     id: icon_music_on
     resize: 75x75
+  - file: mdi:power
+    id: icon_music_power
+    resize: 75x75
   - file: mdi:timer-sand-empty
     id: icon_music_idle
+    resize: 75x75
+  - file: mdi:play-pause
+    id: icon_music_playpause
     resize: 75x75
   - file: mdi:play-box-outline
     id: icon_music_play
@@ -151,17 +157,9 @@ script:
           } else if (strcmp(type.c_str(), "prev") == 0) { // button "prev"
               id(bar_display).image(80, 2, id(icon_music_prev), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
           } else if (strcmp(type.c_str(), "playpause") == 0) { // button "playpause"
-            if (strcmp(id(music_playerstate).state.c_str(), "playing") == 0) {
-                id(bar_display).image(80, 2, id(icon_music_pause), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
-            } else {
-                id(bar_display).image(80, 2, id(icon_music_play), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
-            }
+              id(bar_display).image(80, 2, id(icon_music_playpause), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
           } else if (strcmp(type.c_str(), "power") == 0) { // button "power"
-            if (strcmp(id(music_playerstate).state.c_str(), "off") == 0) {
-                id(bar_display).image(80, 2, id(icon_music_off), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
-            } else {
-                id(bar_display).image(80, 2, id(icon_music_on), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
-            }
+              id(bar_display).image(80, 2, id(icon_music_power), ImageAlign::TOP_CENTER, id(music_card_icon_bar_color));
           }
   - id: music_card_vol_up
     then:
