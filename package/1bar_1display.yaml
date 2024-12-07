@@ -160,6 +160,7 @@ display:
       allow_other_uses: true
     invert_colors: false
     show_test_card: false
+    auto_clear_enabled: false
     dimensions: 
       height: 160
       width: 80
