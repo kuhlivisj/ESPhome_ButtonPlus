@@ -14,7 +14,6 @@ esphome:
   on_boot:
     priority: -100
     then:
-      - logger.log: "ESPHome for Button+ v0.1.0_dev"
       - script.execute: setup_bar_displays
       - script.execute: update_bar1_left
       - script.execute: update_bar1_right
@@ -22,11 +21,6 @@ esphome:
       - script.execute: update_bar2_right
       - script.execute: update_bar3_left
       - script.execute: update_bar3_right
-
-interval:
-  - interval: 1min
-    then:
-      - logger.log: "ESPHome for Button+ v0.1.0_dev"
 
 mcp23008:
   - id: 'base_J0'
