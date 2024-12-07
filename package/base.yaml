@@ -10,6 +10,11 @@
 esp32:
   flash_size: 16MB
 
+interval:
+  - interval: 1min
+    then:
+      - logger.log: "ESPHome for Button+ v0.1.1"
+
 i2c:
   - id: temperature_sensor
     sda: GPIO1
