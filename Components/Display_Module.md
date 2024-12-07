@@ -99,4 +99,3 @@ PIN		Description			Destination
 15		Main Display Backlight anode	-
 	16	Neopixel Data OUT		-
 17		Neopixel Data IN		-
-```

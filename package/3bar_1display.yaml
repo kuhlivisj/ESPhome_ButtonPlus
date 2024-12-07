@@ -8,6 +8,25 @@
 
 packages: 
     base: !include base.yaml
+    scripts: !include 3bar_1display_scripts.yaml
+
+esphome:
+  on_boot:
+    priority: -100
+    then:
+      - logger.log: "ESPHome for Button+ v0.1.0_dev"
+      - script.execute: setup_bar_displays
+      - script.execute: update_bar1_left
+      - script.execute: update_bar1_right
+      - script.execute: update_bar2_left
+      - script.execute: update_bar2_right
+      - script.execute: update_bar3_left
+      - script.execute: update_bar3_right
+
+interval:
+  - interval: 1min
+    then:
+      - logger.log: "ESPHome for Button+ v0.1.0_dev"
 
 mcp23008:
   - id: 'base_J0'
@@ -28,7 +47,7 @@ binary_sensor:
   ### Buttons Main Display ###
   ############################
   - platform: gpio
-    id: 'base_j0_btn_left'
+    id: 'main_display_btn_left'
     name: "Display button Left"
     pin: 
       mcp23xxx: base_J0
@@ -36,7 +55,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
   - platform: gpio
-    id: 'base_j0_btn_right'
+    id: 'main_display_btn_right'
     name: "Display button Right"
     pin: 
       mcp23xxx: base_J0
@@ -48,7 +67,7 @@ binary_sensor:
   ### Buttons BAR module 1 ###
   ############################
   - platform: gpio
-    id: 'base_j1_btn_left'
+    id: 'bar1_btn_left'
     name: "BAR 1 button Left"
     pin: 
       mcp23xxx: base_J1
@@ -56,7 +75,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
   - platform: gpio
-    id: 'base_j1_btn_right'
+    id: 'bar1_btn_right'
     name: "BAR 1 button Right"
     pin: 
       mcp23xxx: base_J1
@@ -68,7 +87,7 @@ binary_sensor:
   ### Buttons BAR module 2 ###
   ############################
   - platform: gpio
-    id: 'base_j2_btn_left'
+    id: 'bar2_btn_left'
     name: "BAR 2 button Left"
     pin: 
       mcp23xxx: base_J2
@@ -76,7 +95,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
   - platform: gpio
-    id: 'base_j2_btn_right'
+    id: 'bar2_btn_right'
     name: "BAR 2 button Right"
     pin: 
       mcp23xxx: base_J2
@@ -88,7 +107,7 @@ binary_sensor:
   ### Buttons BAR module 3 ###
   ############################
   - platform: gpio
-    id: 'base_j3_btn_left'
+    id: 'bar3_btn_left'
     name: "BAR 3 button Left"
     pin: 
       mcp23xxx: base_J3
@@ -96,7 +115,7 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: true
   - platform: gpio
-    id: 'base_j3_btn_right'
+    id: 'bar3_btn_right'
     name: "BAR 3 button Right"
     pin: 
       mcp23xxx: base_J3
@@ -112,28 +131,28 @@ light:
   ##############################
   - platform: partition
     name: "BAR 1 Left RGB Front"
-    id: bar_1_left_rgb_front
+    id: bar1_left_rgb_front
     segments:
       - id: neopixels
         from: 0
         to: 0
   - platform: partition
     name: "BAR 1 Left RGB Back"
-    id: bar_1_left_rgb_back
+    id: bar1_left_rgb_back
     segments:
       - id: neopixels
         from: 1
         to: 1
   - platform: partition
     name: "BAR 1 Right RGB Front"
-    id: bar_1_right_rgb_front
+    id: bar1_right_rgb_front
     segments:
       - id: neopixels
         from: 2
         to: 2
   - platform: partition
     name: "BAR 1 Right RGB Back"
-    id: bar_1_right_rgb_back
+    id: bar1_right_rgb_back
     segments:
       - id: neopixels
         from: 3
@@ -143,28 +162,28 @@ light:
   ##############################
   - platform: partition
     name: "BAR 2 Left RGB Front"
-    id: bar_2_left_rgb_front
+    id: bar2_left_rgb_front
     segments:
       - id: neopixels
         from: 4
         to: 4
   - platform: partition
     name: "BAR 2 Left RGB Back"
-    id: bar_2_left_rgb_back
+    id: bar2_left_rgb_back
     segments:
       - id: neopixels
         from: 5
         to: 5
   - platform: partition
     name: "BAR 2 Right RGB Front"
-    id: bar_2_right_rgb_front
+    id: bar2_right_rgb_front
     segments:
       - id: neopixels
         from: 6
         to: 6
   - platform: partition
     name: "BAR 2 Right RGB Back"
-    id: bar_2_right_rgb_back
+    id: bar2_right_rgb_back
     segments:
       - id: neopixels
         from: 7
@@ -174,42 +193,96 @@ light:
   ##############################
   - platform: partition
     name: "BAR 3 Left RGB Front"
-    id: bar_3_left_rgb_front
+    id: bar3_left_rgb_front
     segments:
       - id: neopixels
         from: 8
         to: 8
   - platform: partition
     name: "BAR 3 Left RGB Back"
-    id: bar_3_left_rgb_back
+    id: bar3_left_rgb_back
     segments:
       - id: neopixels
         from: 9
         to: 9
   - platform: partition
     name: "BAR 3 Right RGB Front"
-    id: bar_3_right_rgb_front
+    id: bar3_right_rgb_front
     segments:
       - id: neopixels
         from: 10 
         to: 10
   - platform: partition
     name: "BAR 3 Right RGB Back"
-    id: bar_3_right_rgb_back
+    id: bar3_right_rgb_back
     segments:
       - id: neopixels
         from: 11
         to: 11
 
+output:
+  #######################################
+  ### CS pins to control BAR Displays ###
+  #######################################
+  - id: cs_pin_bar1_left
+    platform: gpio
+    pin:
+      mcp23xxx: base_J1
+      number: 5
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar1_right
+    platform: gpio
+    pin:
+      mcp23xxx: base_J1
+      number: 1
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar2_left
+    platform: gpio
+    pin:
+      mcp23xxx: base_J2
+      number: 5
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar2_right
+    platform: gpio
+    pin:
+      mcp23xxx: base_J2
+      number: 1
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar3_left
+    platform: gpio
+    pin:
+      mcp23xxx: base_J3
+      number: 5
+      mode:
+        output: true
+      inverted: true
+  - id: cs_pin_bar3_right
+    platform: gpio
+    pin:
+      mcp23xxx: base_J3
+      number: 1
+      mode:
+        output: true
+      inverted: true
+
 display:
   ####################
   ### Main Display ###
   ####################
-  - id: display_j0_main
+  - id: main_display
     platform: ili9xxx
     model: ili9341
     invert_colors: false
     color_order: rgb
+    update_interval: 30s
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
@@ -219,144 +292,26 @@ display:
       mode:
         output: true
       inverted: false
-    update_interval: 200ms
     show_test_card: false
     dimensions: 
       height: 240
       width: 320
     rotation: 180
-  ####################
-  ### BAR module 1 ###
-  ####################
-  - id: display_j1_Left
+  ###################
+  ### BAR modules ###
+  ###################
+  - id: bar_display
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J1
-      number: 5
-      mode:
-        output: true
-      inverted: false
     invert_colors: false
     show_test_card: false
+    auto_clear_enabled: false
     dimensions: 
       height: 160
       width: 80
       offset_width: 24
-    rotation: 270
-    update_interval: 1s
-  - id: display_j1_Right
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J1
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90
-    update_interval: 1s
-  ####################
-  ### BAR module 2 ###
-  ####################
-  - id: display_j2_Left
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    dc_pin: 
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J2
-      number: 5
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 270
-    update_interval: 1s
-  - id: display_j2_Right
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J2
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90
-    update_interval: 1s
-  ####################
-  ### BAR module 3 ###
-  ####################
-  - id: display_j3_Left
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    dc_pin: 
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 5
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 270
-    update_interval: 1s
-  - id: display_j3_Right
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90
-    update_interval: 1s

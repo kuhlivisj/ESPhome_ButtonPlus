@@ -17,7 +17,7 @@ The ESPHome integration adds more flexebility and features, but also add some mo
 [Dutch support topic on Tweakers.net](https://gathering.tweakers.net/forum/list_messages/2270086)
 <!-- 
 [English support topic on Home Assistant Community:](https://)
-TODO...
+TODO
  -->
  
 ## Usefull Links

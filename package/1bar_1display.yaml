@@ -8,6 +8,15 @@
 
 packages: 
     base: !include base.yaml
+    scripts: !include 1bar_1display_scripts.yaml
+
+esphome:
+  on_boot:
+    priority: -100
+    then:
+      - script.execute: setup_bar_displays
+      - script.execute: update_bar1_left
+      - script.execute: update_bar1_right
 
 mcp23008:
   - id: 'base_J2'
@@ -22,16 +31,16 @@ binary_sensor:
   ### Buttons Main Display ###
   ############################
   - platform: gpio
-    id: 'base_j2_btn_left'
-    name: "Display button Left"
+    id: 'main_display_btn_left'
+    name: "Main Display button Left"
     pin: 
       mcp23xxx: base_J2
       number: 6
       mode: INPUT_PULLUP
       inverted: true
   - platform: gpio
-    id: 'base_j2_btn_right'
-    name: "Display button Right"
+    id: 'main_display_btn_right'
+    name: "Main Display button Right"
     pin: 
       mcp23xxx: base_J2
       number: 2
@@ -42,16 +51,16 @@ binary_sensor:
   ### Buttons BAR module 1 ###
   ############################
   - platform: gpio
-    id: 'base_j3_btn_left'
-    name: "BAR button Left"
+    id: 'bar1_btn_left'
+    name: "BAR 1 button Left"
     pin: 
       mcp23xxx: base_J3
       number: 6
       mode: INPUT_PULLUP
       inverted: true
   - platform: gpio
-    id: 'base_j3_btn_right'
-    name: "BAR button Right"
+    id: 'bar1_btn_right'
+    name: "BAR 1 button Right"
     pin: 
       mcp23xxx: base_J3
       number: 2
@@ -65,42 +74,64 @@ light:
   ### RGB LED's BAR module ###
   ############################
   - platform: partition
-    name: "BAR J3 Left RGB Front"
-    id: bar_j3_left_rgb_front
+    name: "BAR 1 Left RGB Front"
+    id: bar1_left_rgb_front
     segments:
       - id: neopixels
         from: 0
         to: 0
   - platform: partition
-    name: "BAR J3 Left RGB Back"
-    id: bar_j3_left_rgb_back
+    name: "BAR 1 Left RGB Back"
+    id: bar1_left_rgb_back
     segments:
       - id: neopixels
         from: 1
         to: 1
   - platform: partition
-    name: "BAR J3 Right RGB Front"
-    id: bar_j3_right_rgb_front
+    name: "BAR 1 Right RGB Front"
+    id: bar1_right_rgb_front
     segments:
       - id: neopixels
         from: 2
         to: 2
   - platform: partition
-    name: "BAR J3 Right RGB Back"
-    id: bar_j3_right_rgb_back
+    name: "BAR 1 Right RGB Back"
+    id: bar1_right_rgb_back
     segments:
       - id: neopixels
         from: 3
         to: 3
 
+output:
+  #######################################
+  ### CS pins to control BAR Displays ###
+  #######################################
+  - id: cs_pin_bar1_left
+    platform: gpio
+    pin:
+      mcp23xxx: base_J3
+      number: 5
+      mode:
+        output: true
+      inverted: false
+  - id: cs_pin_bar1_right
+    platform: gpio
+    pin:
+      mcp23xxx: base_J3
+      number: 1
+      mode:
+        output: true
+      inverted: false
+
 display:
   ####################
   ### Main Display ###
   ####################
-  - id: display_j2_main
+  - id: main_display
     platform: ili9xxx
     model: ili9341
     color_order: rgb
+    update_interval: 30s
     invert_colors: false
     dc_pin: 
       number: GPIO37
@@ -111,7 +142,6 @@ display:
       mode:
         output: true
       inverted: false
-    update_interval: 500ms
     show_test_card: false
     dimensions: 
       height: 240
@@ -120,45 +150,17 @@ display:
   ##################
   ### BAR module ###
   ##################
-  - id: display_j3_Left
+  - id: bar_display
     platform: ili9xxx
     model: ST7735
     color_order: bgr
+    update_interval: never
     dc_pin: 
       number: GPIO37
       allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 5
-      mode:
-        output: true
-      inverted: false
     invert_colors: false
     show_test_card: false
     dimensions: 
       height: 160
       width: 80
       offset_width: 24
-    rotation: 270
-    update_interval: 1s
-  - id: display_j3_Right
-    platform: ili9xxx
-    model: ST7735
-    color_order: bgr
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90
-    update_interval: 1s

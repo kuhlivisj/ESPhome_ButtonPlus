@@ -23,6 +23,14 @@ spi:
   clk_pin: GPIO36
   mosi_pin: GPIO35
 
+globals:
+  - id: nr_of_pages
+    type: int
+    initial_value: '1'
+  - id: actual_page
+    type: int
+    initial_value: '0'
+
 output:
   - platform: ledc
     pin: GPIO3
@@ -34,7 +42,7 @@ output:
     pin: GPIO46
     id: displays_mini_backlight_pwm
     inverted: True
-    max_power: 0.4
+    max_power: 0.6
     frequency: 500Hz
 
 sensor:
@@ -68,3 +76,24 @@ light:
 time:
   - platform: homeassistant
     id: datetime
+
+script:
+######################
+### paging scripts ###
+######################
+  - id: next_page
+    then: 
+      - lambda: |-
+          id(actual_page) = id(actual_page) + 1;
+          if(id(actual_page) >= id(nr_of_pages)) {
+            id(actual_page) = 0;
+          }
+      - script.execute: update_all
+  - id: prev_page
+    then: 
+      - lambda: |-
+          id(actual_page) = id(actual_page) - 1;
+          if(id(actual_page) < 0) {
+            id(actual_page) = id(nr_of_pages) - 1;
+          }
+      - script.execute: update_all
