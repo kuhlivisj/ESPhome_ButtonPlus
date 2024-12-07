@@ -14,14 +14,14 @@ Resolution: 160 (h) x 80 (v)
 
 ```
 Left		Right		Common		PIN SYMBOL	FUNCTION
-									1 LEDA 		Backlight anode
-									2 GND 		Ground
-									3 RESET 	Chip reset signal
-									4 RS 		Register select signal. 0:index register; 1:data register
-									5 SDA 		Serial data input pin in serial interface operation
-									6 SCL 		Serial interface clock
-									7 VCC(2.8V)	Analog Power Supply for LCM(2.8V)
-IC1-14 GP5	IC1-10 GP1				8 CS 		Chip select pin
+						1 LEDA 		Backlight anode
+						2 GND 		Ground
+						3 RESET 	Chip reset signal
+						4 RS 		Register select signal. 0:index register; 1:data register
+						5 SDA 		Serial data input pin in serial interface operation
+						6 SCL 		Serial interface clock
+						7 VCC(2.8V)	Analog Power Supply for LCM(2.8V)
+IC1-14 GP5	IC1-10 GP1			8 CS 		Chip select pin
 ```
 
 ## IC 1
@@ -65,23 +65,22 @@ Button Right:	IC 1 # 11	GP2
 ## Base connector 1
 
 ```
-PIN		Description						Destination
-1		GND								GND
-	2	+3.3V							+3.3V
-3		Reset							IC 1 #4, Display #3
-	4	I2C SDA							IC 1 #20
-5		SPI MOSI						Display #5
-	6	I2C SCL							IC 1 #19
-7		SPI SCK							Display #6
-	8	I2C Address MSP A0				IC 1 #3
-9		SPI Register select				Display #4
-	10	I2C Address MSP A1				IC 1 #2
-11		Backlight anode					Display #1
-	12	I2C Address MSP A2				IC 1 #1
-13		Extensionplate...				-
-	14	Connected with J0,2,3			-
+PIN		Description			Destination
+1		GND				GND
+	2	+3.3V				+3.3V
+3		Reset				IC 1 #4, Display #3
+	4	I2C SDA				IC 1 #20
+5		SPI MOSI			Display #5
+	6	I2C SCL				IC 1 #19
+7		SPI SCK				Display #6
+	8	I2C Address MSP A0		IC 1 #3
+9		SPI Register select		Display #4
+	10	I2C Address MSP A1		IC 1 #2
+11		Backlight anode			Display #1
+	12	I2C Address MSP A2		IC 1 #1
+13		Extensionplate...		-
+	14	Connected with J0,2,3		-
 15		Main Display Backlight anode	-
-	16	Neopixel Data OUT				Neopixel Front Left
-17		Neopixel Data IN				Neopixel Back Right
+	16	Neopixel Data OUT		Neopixel Front Left
+17		Neopixel Data IN		Neopixel Back Right
 ```
-
