@@ -42,7 +42,7 @@ binary_sensor:
   ############################
   - platform: gpio
     id: 'main_display_btn_left'
-    name: "Display button Left"
+    name: "Main Display button Left"
     pin: 
       mcp23xxx: base_J0
       number: 6
@@ -50,7 +50,7 @@ binary_sensor:
       inverted: true
   - platform: gpio
     id: 'main_display_btn_right'
-    name: "Display button Right"
+    name: "Main Display button Right"
     pin: 
       mcp23xxx: base_J0
       number: 2

@@ -87,7 +87,6 @@ event:
       - "release page 0"
       - "long press page 0"
 
-
 binary_sensor:
   - id: !extend main_display_btn_left
     on_click:
