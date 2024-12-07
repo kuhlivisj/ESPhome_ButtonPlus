@@ -165,7 +165,7 @@ output:
   - id: cs_pin_bar1_left
     platform: gpio
     pin:
-      mcp23xxx: base_J1
+      mcp23xxx: base_J2
       number: 5
       mode:
         output: true
@@ -173,7 +173,7 @@ output:
   - id: cs_pin_bar1_right
     platform: gpio
     pin:
-      mcp23xxx: base_J1
+      mcp23xxx: base_J2
       number: 1
       mode:
         output: true
@@ -181,7 +181,7 @@ output:
   - id: cs_pin_bar2_left
     platform: gpio
     pin:
-      mcp23xxx: base_J2
+      mcp23xxx: base_J3
       number: 5
       mode:
         output: true
@@ -189,7 +189,7 @@ output:
   - id: cs_pin_bar2_right
     platform: gpio
     pin:
-      mcp23xxx: base_J2
+      mcp23xxx: base_J3
       number: 1
       mode:
         output: true
