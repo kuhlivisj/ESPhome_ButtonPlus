@@ -11,8 +11,4 @@ wifi_password: "YOUR_PASSWORD"
 6. Compile (Install, manual download) and download in modern format
 7. Connect the B+ to your computer
 8. Open a compatible browser such as Chrome and visit https://web.esphome.io
-
-
-
-
-Read me
+9. Load the downloaded file to your device and enjoy
