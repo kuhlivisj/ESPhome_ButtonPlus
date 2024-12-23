@@ -93,6 +93,7 @@ script:
           if(id(actual_page) >= id(nr_of_pages)) {
             id(actual_page) = 0;
           }
+          id(active_page_name) = id(page_names)[id(actual_page)]
       - script.execute: update_all
   - id: prev_page
     then: 
@@ -101,4 +102,5 @@ script:
           if(id(actual_page) < 0) {
             id(actual_page) = id(nr_of_pages) - 1;
           }
+          id(active_page_name) = id(page_names)[id(actual_page)]
       - script.execute: update_all
