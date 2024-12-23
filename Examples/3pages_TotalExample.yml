@@ -46,6 +46,9 @@ packages:
 globals:
   - id: !extend nr_of_pages
     initial_value: '3'
+  - id: page_names
+    type: std::vector<std::string>
+    initial_value: '{"Page 1","Music","Page 3"}'
   - id: active_page_name
     type: std::string
     initial_value: ""
