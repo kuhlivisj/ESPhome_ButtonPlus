@@ -131,10 +131,10 @@ script:
             id(actual_page) = 0;
           }
       
-      - lambda: |-
-          id(active_page_name) = id(page_names)[id(actual_page)];
-      - script.execute: update_all
-      # - script.execute: update_page    
+      # - lambda: |-
+      #     id(active_page_name) = id(page_names)[id(actual_page)];
+      # - script.execute: update_all
+      - script.execute: update_page    
   - id: prev_page
     then: 
       - lambda: |-
