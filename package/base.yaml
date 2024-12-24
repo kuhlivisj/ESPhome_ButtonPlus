@@ -151,14 +151,15 @@ script:
     then:
       - lambda: |-
           id(active_page_name) = id(page_names)[id(actual_page)];
+      
+      - sensor.template.publish:
+          id: active_page_id_ha
+          state: !lambda 'return id(actual_page);'
+      - text_sensor.template.publish:
+          id: active_page_name_ha
+          state: !lambda 'return id(active_page_name);'
+      - number.set:
+          id: menuselector
+          value: !lambda 'return id(actual_page);'
       - script.execute: update_all
-      # - sensor.template.publish:
-      #     id: active_page_id_ha
-      #     state: !lambda 'return id(actual_page);'
-      # - text_sensor.template.publish:
-      #     id: active_page_name_ha
-      #     state: !lambda 'return id(active_page_name);'
-      # - number.set:
-      #     id: menuselector
-      #     value: !lambda 'return id(actual_page);'
       
