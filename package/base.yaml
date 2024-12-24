@@ -57,7 +57,17 @@ sensor:
     name: "Temperature"
     address: 0x4A
     update_interval: 10s
-
+  - platform: template
+    name: "Active Page ID"
+    id: active_page_id_ha
+    update: never
+    
+text_sensor:
+  - platform: template
+    name: "Active Page Name"
+    id: active_page_name_ha
+    update: never
+    
 light:
   - platform: neopixelbus
     id: neopixels
@@ -95,6 +105,12 @@ script:
           }
           id(active_page_name) = id(page_names)[id(actual_page)];
       - script.execute: update_all
+      - sensor.template.publish:
+          id: active_page_id_ha
+          state: !lambda 'return id(actual_page);'
+      - text_sensor.template.publish:
+          id: active_page_name_ha
+          state: !lambda 'return id(active_page_name);'
   - id: prev_page
     then: 
       - lambda: |-
@@ -104,3 +120,9 @@ script:
           }
           id(active_page_name) = id(page_names)[id(actual_page)];
       - script.execute: update_all
+      - sensor.template.publish:
+          id: active_page_id_ha
+          state: !lambda 'return id(actual_page);'
+      - text_sensor.template.publish:
+          id: active_page_name_ha
+          state: !lambda 'return id(active_page_name);'
