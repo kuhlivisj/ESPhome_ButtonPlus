@@ -95,7 +95,6 @@ time:
 number:
   ## Creates a number entity in Home Assistant
   #  It sets the menu of the Button Plus
-  #  The menu item
   - platform: template
     name: "Menu Selector"
     id: menuselector
@@ -113,12 +112,7 @@ number:
             }
         # Refresh the screen
         - script.execute: update_page
-        # - lambda: |-
-        #     id(active_page_name) = id(page_names)[id(actual_page)];
-        # - script.execute: update_all
         
-
-
 script:
 ######################
 ### paging scripts ###
@@ -130,10 +124,6 @@ script:
           if(id(actual_page) >= id(nr_of_pages)) {
             id(actual_page) = 0;
           }
-      
-      # - lambda: |-
-      #     id(active_page_name) = id(page_names)[id(actual_page)];
-      # - script.execute: update_all
       - script.execute: update_page    
   - id: prev_page
     then: 
@@ -142,16 +132,11 @@ script:
           if(id(actual_page) < 0) {
             id(actual_page) = id(nr_of_pages) - 1;
           }
-      
-      # - lambda: |-
-      #     id(active_page_name) = id(page_names)[id(actual_page)];
-      # - script.execute: update_all
       - script.execute: update_page
   - id: update_page
     then:
       - lambda: |-
           id(active_page_name) = id(page_names)[id(actual_page)];
-      
       - sensor.template.publish:
           id: active_page_id_ha
           state: !lambda 'return id(actual_page);'
