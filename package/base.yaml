@@ -103,16 +103,16 @@ number:
     min_value: 0   # keep at 0
     max_value: 10  # Maximum number of menu items. You can change this
     step: 1
-    # on_value:
-    #   then:
-    #     - lambda: |-
-    #         if(id(menuselector).state >= id(nr_of_pages)) {
-    #           id(actual_page) = id(nr_of_pages)-1;
-    #         } else {
-    #           id(actual_page) = id(menuselector).state;
-    #         }
-    #     # Refresh the screen
-    #     - script.execute: update_page
+    on_value:
+      then:
+        - lambda: |-
+            if(id(menuselector).state >= id(nr_of_pages)) {
+              id(actual_page) = id(nr_of_pages)-1;
+            } else {
+              id(actual_page) = id(menuselector).state;
+            }
+        # Refresh the screen
+        - script.execute: update_page
 
 script:
 ######################
