@@ -60,13 +60,13 @@ sensor:
   - platform: template
     name: "Active Page ID"
     id: active_page_id_ha
-    update: never
+    update_interval: never
     
 text_sensor:
   - platform: template
     name: "Active Page Name"
     id: active_page_name_ha
-    update: never
+    update_interval: never
     
 light:
   - platform: neopixelbus
