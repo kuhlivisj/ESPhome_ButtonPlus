@@ -112,11 +112,11 @@ number:
               id(actual_page) = id(menuselector).state;
             }
         # Refresh the screen
-        # - script.execute: update_page
-        - lambda: |-
-            id(active_page_name) = id(page_names)[id(actual_page)];
-        - script.execute: update_all
-        # - component.update: main_display
+        - script.execute: update_page
+        # - lambda: |-
+        #     id(active_page_name) = id(page_names)[id(actual_page)];
+        # - script.execute: update_all
+        
 
 
 script:
@@ -143,15 +143,15 @@ script:
             id(actual_page) = id(nr_of_pages) - 1;
           }
       
+      # - lambda: |-
+      #     id(active_page_name) = id(page_names)[id(actual_page)];
+      # - script.execute: update_all
+      - script.execute: update_page
+  - id: update_page
+    then:
       - lambda: |-
           id(active_page_name) = id(page_names)[id(actual_page)];
       - script.execute: update_all
-      # - script.execute: update_page
-  # - id: update_page
-  #   then:
-  #     - lambda: |-
-  #         id(active_page_name) = id(page_names)[id(actual_page)];
-  #     - script.execute: update_all
       # - sensor.template.publish:
       #     id: active_page_id_ha
       #     state: !lambda 'return id(actual_page);'
