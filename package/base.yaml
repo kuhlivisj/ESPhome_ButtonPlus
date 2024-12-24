@@ -115,8 +115,8 @@ number:
         # - script.execute: update_page
         - lambda: |-
             id(active_page_name) = id(page_names)[id(actual_page)];
-        # - script.execute: update_all
-        - component.update: main_display
+        - script.execute: update_all
+        # - component.update: main_display
 
 
 script:
