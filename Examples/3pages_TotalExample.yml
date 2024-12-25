@@ -40,7 +40,7 @@ packages:
     files: 
       - 'package/3bar_1display.yaml'
       - 'package/cards/music.yaml'
-    ref: serialize-displays
+    ref: main
     refresh: 1d
 
 globals:
