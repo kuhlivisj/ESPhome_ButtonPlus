@@ -100,7 +100,7 @@ number:
     id: menuselector
     optimistic: true
     min_value: 0   # keep at 0
-    max_value: 10 # TODO replace page numbers with substitution 
+    max_value: 10  # TODO replace page numbers with substitution 
     step: 1
     on_value:
       then:
@@ -135,8 +135,8 @@ script:
       - script.execute: update_page
   - id: update_page
     then:
-      # - lambda: |-
-      #     id(active_page_name) = id(page_names)[id(actual_page)]; ## <<< This causes the button to reboot
+      - lambda: |-
+          id(active_page_name) = id(page_names)[id(actual_page)];
       - sensor.template.publish:
           id: active_page_id_ha
           state: !lambda 'return id(actual_page);'
