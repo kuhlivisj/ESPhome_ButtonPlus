@@ -100,7 +100,8 @@ number:
     id: menuselector
     optimistic: true
     min_value: 0   # keep at 0
-    max_value: !lambda 'return id(nr_of_pages) - 1;'
+    max_value: !lambda 'return float(id(nr_of_pages)-1);'
+    step: 1
     on_value:
       then:
         - lambda: |-
