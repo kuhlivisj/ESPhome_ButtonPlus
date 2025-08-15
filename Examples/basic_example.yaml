@@ -18,11 +18,11 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: "2IF/Aa3Sf31DyZpHOBhDoQM1+RuDeLZhHbVSmKVdwx0="
+    key: "xxx"
 
 ota:
   - platform: esphome
-    password: "f3063af8596a5910fc4798ff4efee4dc"
+    password: "xxx"
 
 wifi:
   ssid: !secret wifi_ssid
@@ -32,139 +32,12 @@ wifi:
 ### Code below is specific for the Button+
 ###
     
-i2c:
-  - id: temperature_sensor
-    sda: GPIO1
-    scl: GPIO2
-    scan: true
-  - id: buttons
-    sda: GPIO47
-    scl: GPIO48
-    scan: true
-    frequency: 400khz
-
-spi:
-  clk_pin: GPIO36
-  mosi_pin: GPIO35
-  # miso_pin: GPIOXX
-
-mcp23008:
-  # - id: 'base_J0'
-  #   address: 0x20
-  # - id: 'base_J1'
-  #   address: 0x21
-  - id: 'base_J2'
-    i2c_id: buttons
-    address: 0x22
-  - id: 'base_J3'
-    i2c_id: buttons
-    address: 0x23
-
-# Define a PWM output on the ESP32
-output:
-  - platform: ledc
-    pin: GPIO46
-    id: displays_mini_backlight_pwm
-    inverted: True
-  - platform: ledc
-    pin: GPIO3
-    id: display_main_backlight_pwm
-    inverted: True
-
-binary_sensor:
-  - platform: gpio
-    id: 'base_j2_btn_left'
-    name: "Display button Left"
-    pin: 
-      mcp23xxx: base_J2
-      number: 6
-      mode: INPUT_PULLUP
-      inverted: true
-
-  - platform: gpio
-    id: 'base_j2_btn_right'
-    name: "Display button Right"
-    pin: 
-      mcp23xxx: base_J2
-      number: 2
-      mode: INPUT_PULLUP
-      inverted: true
-
-  - platform: gpio
-    id: 'base_j3_btn_left'
-    name: "BAR button Left"
-    pin: 
-      mcp23xxx: base_J3
-      number: 6
-      mode: INPUT_PULLUP
-      inverted: true
-
-  - platform: gpio
-    id: 'base_j3_btn_right'
-    name: "BAR button Right"
-    pin: 
-      mcp23xxx: base_J3
-      number: 2
-      mode: INPUT_PULLUP
-      inverted: true
-
-sensor:
-  - platform: sts3x
-    id: inside_temperature
-    i2c_id: temperature_sensor
-    name: "Temperature"
-    address: 0x4A
-    update_interval: 10s
-
-light:
-  - platform: monochromatic
-    output: displays_mini_backlight_pwm
-    name: "Mini Display Backlight"
-    id: displays_mini_backlight
-    restore_mode: ALWAYS_ON
-  - platform: monochromatic
-    output: display_main_backlight_pwm
-    name: "Main Display Backlight"
-    id: display_main_backlight
-    restore_mode: ALWAYS_ON
-  - platform: neopixelbus
-    id: neopixels
-    type: RGB
-    variant: WS2812
-    pin: GPIO4
-    num_leds: 8
-  - platform: partition
-    name: "BAR J3 Left RGB Front"
-    id: bar_j3_left_rgb_front
-    segments:
-      - id: neopixels
-        from: 0
-        to: 0
-  - platform: partition
-    name: "BAR J3 Left RGB Back"
-    id: bar_j3_left_rgb_back
-    segments:
-      - id: neopixels
-        from: 1
-        to: 1
-  - platform: partition
-    name: "BAR J3 Right RGB Front"
-    id: bar_j3_right_rgb_front
-    segments:
-      - id: neopixels
-        from: 2
-        to: 2
-  - platform: partition
-    name: "BAR J3 Right RGB Back"
-    id: bar_j3_right_rgb_back
-    segments:
-      - id: neopixels
-        from: 3
-        to: 3
-
-time:
-  - platform: homeassistant
-    id: esptime
+packages:
+  remote_package_files:
+    url: https://github.com/dixi83/ESPHome_ButtonPlus
+    files: [package/1bar_1display.yaml]
+    ref: main 
+    refresh: 1d
 
 font:
   - file: "https://github.com/web-fonts/ttf/raw/refs/heads/master/bpg-ingiri-arial-webfont.ttf"
@@ -187,35 +60,21 @@ image:
   - file: "https://i.postimg.cc/CMXFmZ5n/henk.png"
     id: henk
     resize: 120x100
-    type: RGBA
+    type: RGB565
     use_transparency: true
 
 color:
   - id: red
-    hex: 0000FF
-  - id: blue
     hex: FF0000
+  - id: blue
+    hex: 0000FF
+  - id: yellow
+    hex: FFFF00
+  - id: green
+    hex: 00FF00
 
 display:
-  - id: display_j2_main
-    platform: ili9xxx
-    model: ili9341
-    invert_colors: false
-    dc_pin: 
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J2
-      number: 5
-      mode:
-        output: true
-      inverted: false
-    update_interval: 100ms
-    show_test_card: false
-    dimensions: 
-      height: 240
-      width: 320
-    rotation: 180
+  - id: !extend display_j2_main
     lambda: |-
       // Print inside temperature (from homeassistant sensor)
       if (id(inside_temperature).has_state()) {
@@ -224,53 +83,14 @@ display:
       it.printf(2, 80, id(my_font15), id(blue), TextAlign::BASELINE_LEFT, "Binnen");
 
       // Print time and date
-      it.strftime(160, 60, id(my_font40), TextAlign::BASELINE_CENTER, "%H:%M", id(esptime).now());
-      it.strftime(160, 80, id(my_font20), id(red), TextAlign::BASELINE_CENTER, "%d-%m-%Y", id(esptime).now());
+      it.strftime(160, 60, id(my_font40), TextAlign::BASELINE_CENTER, "%H:%M", id(datetime).now());
+      it.strftime(160, 80, id(my_font20), id(red), TextAlign::BASELINE_CENTER, "%d-%m-%Y", id(datetime).now());
 
       // Draw the image my_online_image at position
-      it.image(160, 100, id(henk), ImageAlign::TOP_CENTER);
-  - id: display_j3_Left
-    platform: ili9xxx
-    model: ST7735
-    dc_pin: 
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 5
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 270
-    update_interval: 1s
+      // it.image(160, 100, id(henk), ImageAlign::TOP_CENTER);
+  - id: !extend display_j3_Left
     lambda: |-
       it.image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(red));
-  - id: display_j3_Right
-    platform: ili9xxx
-    model: ST7735
-    dc_pin:
-      number: GPIO37
-      allow_other_uses: true
-    cs_pin: 
-      mcp23xxx: base_J3
-      number: 1
-      mode:
-        output: true
-      inverted: false
-    invert_colors: false
-    show_test_card: false
-    dimensions: 
-      height: 160
-      width: 80
-      offset_width: 24
-    rotation: 90
-    update_interval: 1s
+  - id: !extend display_j3_Right
     lambda: |-
-      //it.print(0, 25, id(my_font15), "Hello B+! From ESPHome");
       it.image(80, 0, id(alert), ImageAlign::TOP_CENTER);

@@ -17,7 +17,7 @@ The ESPHome integration adds more flexebility and features, but also add some mo
 [Dutch support topic on Tweakers.net](https://gathering.tweakers.net/forum/list_messages/2270086)
 <!-- 
 [English support topic on Home Assistant Community:](https://)
-TODO...
+TODO
  -->
  
 ## Usefull Links
@@ -42,5 +42,6 @@ The documentaion is yet to be made... Again If you want to help... Pull requests
 	- [x] figure out how to control them individually. [> maybe with Light Partition](https://esphome.io/components/light/partition)
 	- [x] find correct [type](https://esphome.io/components/light/neopixelbus.html#configuration-variables)
 - [x] Temperature sensor STS35
+- [ ] Make a basic [package](https://esphome.io/components/packages.html) so there is less initial code to be copied.
 - [ ] Documentation
 - [ ] More examples

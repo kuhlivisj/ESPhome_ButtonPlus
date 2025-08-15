@@ -1,0 +1,150 @@
+###########################################
+##                                       ##
+##   filename: base.yaml                 ##
+##   description: contains configuration ##
+##   that will be the same for all the   ##
+##   possible configurations             ##
+##                                       ##
+###########################################
+
+esp32:
+  flash_size: 16MB
+
+interval:
+  - interval: 1min
+    then:
+      - logger.log: "ESPHome for Button+ v0.1.1"
+
+i2c:
+  - id: temperature_sensor
+    sda: GPIO1
+    scl: GPIO2
+  - id: buttons
+    sda: GPIO47
+    scl: GPIO48
+    frequency: 400khz
+
+spi:
+  clk_pin: GPIO36
+  mosi_pin: GPIO35
+
+globals:
+  - id: nr_of_pages
+    type: int
+    initial_value: '1'
+  - id: actual_page
+    type: int
+    initial_value: '0'
+
+output:
+  - platform: ledc
+    pin: GPIO3
+    id: display_main_backlight_pwm
+    inverted: True
+    max_power: 1.0
+    frequency: 500Hz
+  - platform: ledc
+    pin: GPIO46
+    id: displays_mini_backlight_pwm
+    inverted: True
+    max_power: 0.6
+    frequency: 500Hz
+
+sensor:
+  - platform: sts3x
+    id: inside_temperature
+    i2c_id: temperature_sensor
+    name: "Temperature"
+    address: 0x4A
+    update_interval: 10s
+  - platform: template
+    name: "Active Page ID"
+    id: active_page_id_ha
+    update_interval: never
+    
+text_sensor:
+  - platform: template
+    name: "Active Page Name"
+    id: active_page_name_ha
+    update_interval: never
+    
+light:
+  - platform: neopixelbus
+    id: neopixels
+    type: RGB
+    variant: WS2812
+    pin: GPIO4
+    num_leds: 17
+  - platform: monochromatic
+    output: display_main_backlight_pwm
+    gamma_correct : 2.2
+    name: "Main Display Backlight"
+    id: display_main_backlight
+    restore_mode: ALWAYS_ON
+  - platform: monochromatic
+    output: displays_mini_backlight_pwm
+    gamma_correct : 2.2
+    name: "Mini Display Backlight"
+    id: displays_mini_backlight
+    restore_mode: ALWAYS_ON
+    
+time:
+  - platform: homeassistant
+    id: datetime
+
+number:
+  ## Creates a number entity in Home Assistant
+  #  It sets the menu of the Button Plus
+  - platform: template
+    name: "Menu Selector"
+    id: menuselector
+    optimistic: true
+    min_value: 0   # keep at 0
+    max_value: 10  # TODO replace page numbers with substitution 
+    step: 1
+    on_value:
+      then:
+        - lambda: |-
+            if(id(menuselector).state >= id(nr_of_pages)) {
+              id(actual_page) = id(nr_of_pages)-1;
+            } else {
+              id(actual_page) = id(menuselector).state;
+            }
+#         # Refresh the screen
+#         - script.execute: update_page <<< this ends in an loop...
+        
+script:
+######################
+### paging scripts ###
+######################
+  - id: next_page
+    then: 
+      - lambda: |-
+          id(actual_page) = id(actual_page) + 1;
+          if(id(actual_page) >= id(nr_of_pages)) {
+            id(actual_page) = 0;
+          }
+      - script.execute: update_page    
+  - id: prev_page
+    then: 
+      - lambda: |-
+          id(actual_page) = id(actual_page) - 1;
+          if(id(actual_page) < 0) {
+            id(actual_page) = id(nr_of_pages) - 1;
+          }
+      - script.execute: update_page
+  - id: update_page
+    then:
+      - lambda: |-
+          id(active_page_name) = id(page_names)[id(actual_page)];
+      - sensor.template.publish:
+          id: active_page_id_ha
+          state: !lambda 'return id(actual_page);'
+      - text_sensor.template.publish:
+          id: active_page_name_ha
+          state: !lambda 'return id(active_page_name);'
+      - number.set:
+          id: menuselector
+          value: !lambda 'return id(actual_page);'
+      - script.execute: update_all
+      

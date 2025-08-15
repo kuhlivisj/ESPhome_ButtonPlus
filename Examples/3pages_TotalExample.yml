@@ -1,0 +1,641 @@
+esphome:
+  name: button-keuken
+  friendly_name: Button+ Keuken
+
+esp32:
+  board: esp32-s3-devkitc-1
+  flash_size: 16MB
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: DEBUG
+
+debug:
+  update_interval: 5s
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "*"
+
+ota:
+  - platform: esphome
+    password: "*"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+substitutions:
+  music_card_enity_id: 'media_player.media_keuken_2'
+  music_card_text_color: FFFFFF
+  music_card_icon_main_color: FF7F00
+  music_card_icon_bar_color: FF7F00
+
+packages:
+  remote_package_files:
+    url: https://github.com/dixi83/ESPHome_ButtonPlus
+    files: 
+      - 'package/3bar_1display.yaml'
+      - 'package/cards/music.yaml'
+    ref: main
+    refresh: 1d
+
+globals:
+  - id: !extend nr_of_pages
+    initial_value: '3'
+  - id: page_names
+    type: std::vector<std::string>
+    initial_value: '{"Page 1","Music","Page 3"}'
+  - id: active_page_name
+    type: std::string
+    initial_value: ""
+
+font:
+  - file: "https://github.com/web-fonts/ttf/raw/refs/heads/master/bpg-ingiri-arial-webfont.ttf"
+    id: font_arial20
+    size: 20
+    bpp: 4
+  - file: "https://torinak.com/font/7segment.ttf"
+    id: font_clock
+    size: 64
+    bpp: 4
+  - file: "https://torinak.com/font/7segment.ttf"
+    id: font_date
+    size: 24
+    bpp: 4
+
+image:
+  - file: mdi:lightbulb
+    id: lightbulb
+    resize: 80x80
+  - file: mdi:alert
+    id: alert
+    resize: 80x80
+  - file: mdi:chevron-right
+    id: icon_next_page
+    resize: 30x30
+  - file: mdi:chevron-left
+    id: icon_prev_page
+    resize: 30x30
+  - file: mdi:sun-thermometer-outline
+    id: icon_temp_outside
+    resize: 40x40
+  - file: mdi:home-thermometer-outline
+    id: icon_temp_inside
+    resize: 40x40
+  - file: mdi:trash-can
+    id: icon_trashcan
+    resize: 20x20
+
+color:
+  - id: red
+    hex: FF0000
+  - id: blue
+    hex: 0000FF
+  - id: yellow
+    hex: FFFF00
+  - id: green
+    hex: 00FF00
+  - id: orange
+    hex: FF7F00
+  - id: white
+    hex: FFFFFF
+  - id: grey
+    hex: A6A6A6
+
+event:
+  - platform: template
+    name: BAR1 button Left event
+    id: bar1_btn_left_event
+    event_types:
+      - "press page 0"
+      - "release page 0"
+      - "long press page 0"
+      - "press page 1"
+      - "release page 1"
+      - "long press page 1"
+      - "press page 2"
+      - "release page 2"
+      - "long press page 2"
+  - platform: template
+    name: BAR1 button Right event
+    id: bar1_btn_right_event
+    event_types:
+      - "press page 0"
+      - "release page 0"
+      - "long press page 0"
+      - "press page 1"
+      - "release page 1"
+      - "long press page 1"
+      - "press page 2"
+      - "release page 2"
+      - "long press page 2"
+  - platform: template
+    name: BAR2 button Left event
+    id: bar2_btn_left_event
+    event_types:
+      - "press page 0"
+      - "release page 0"
+      - "long press page 0"
+      - "press page 1"
+      - "release page 1"
+      - "long press page 1"
+      - "press page 2"
+      - "release page 2"
+      - "long press page 2"
+  - platform: template
+    name: BAR2 button Right event
+    id: bar2_btn_right_event
+    event_types:
+      - "press page 0"
+      - "release page 0"
+      - "long press page 0"
+      - "press page 1"
+      - "release page 1"
+      - "long press page 1"
+      - "press page 2"
+      - "release page 2"
+      - "long press page 2"
+  - platform: template
+    name: BAR3 button Left event
+    id: bar3_btn_left_event
+    event_types:
+      - "press page 0"
+      - "release page 0"
+      - "long press page 0"
+      - "press page 1"
+      - "release page 1"
+      - "long press page 1"
+      - "press page 2"
+      - "release page 2"
+      - "long press page 2"
+  - platform: template
+    name: BAR3 button Right event
+    id: bar3_btn_right_event
+    event_types:
+      - "press page 0"
+      - "release page 0"
+      - "long press page 0"
+      - "press page 1"
+      - "release page 1"
+      - "long press page 1"
+      - "press page 2"
+      - "release page 2"
+      - "long press page 2"
+
+binary_sensor:
+  - id: !extend main_display_btn_left
+    on_click:
+      - script.execute: prev_page
+  - id: !extend main_display_btn_right
+    on_click:
+      - script.execute: next_page
+  - id: !extend bar1_btn_left
+    on_click:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar1_btn_left_event).trigger("press page 0");
+            break;
+          case 1:
+            id(bar1_btn_left_event).trigger("press page 1");
+            id(music_card_vol_down).execute();
+            break;
+          case 2:
+            id(bar1_btn_left_event).trigger("press page 2");
+            break;
+        }
+    on_release:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar1_btn_left_event).trigger("release page 0");
+            break;
+          case 1:
+            id(bar1_btn_left_event).trigger("release page 1");
+            break;
+          case 2:
+            id(bar1_btn_left_event).trigger("release page 2");
+            break;
+        }
+    on_multi_click:
+      - timing:
+          - ON for at least 2s
+        then:
+          - lambda: |-
+              switch (id(actual_page)){
+                case 0:
+                  id(bar1_btn_left_event).trigger("long press page 0");
+                  break;
+                case 1:
+                  id(bar1_btn_left_event).trigger("long press page 1");
+                  break;
+                case 2:
+                  id(bar1_btn_left_event).trigger("long press page 2");
+                  break;
+              }
+  - id: !extend bar1_btn_right
+    on_click:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar1_btn_right_event).trigger("press page 0");
+            break;
+          case 1:
+            id(bar1_btn_right_event).trigger("press page 1");
+            id(music_card_vol_up).execute();
+            break;
+          case 2:
+            id(bar1_btn_right_event).trigger("press page 2");
+            break;
+        }
+    on_release:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar1_btn_right_event).trigger("release page 0");
+            break;
+          case 1:
+            id(bar1_btn_right_event).trigger("release page 1");
+            break;
+          case 2:
+            id(bar1_btn_right_event).trigger("release page 2");
+            break;
+        }
+    on_multi_click:
+      - timing:
+          - ON for at least 2s
+        then:
+          - lambda: |-
+              switch (id(actual_page)){
+                case 0:
+                  id(bar1_btn_right_event).trigger("long press page 0");
+                  break;
+                case 1:
+                  id(bar1_btn_right_event).trigger("long press page 1");
+                  break;
+                case 2:
+                  id(bar1_btn_right_event).trigger("long press page 2");
+                  break;
+              }
+  - id: !extend bar2_btn_left
+    on_click:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar2_btn_left_event).trigger("press page 0");
+            break;
+          case 1:
+            id(bar2_btn_left_event).trigger("press page 1");
+            id(music_card_prev).execute();
+            break;
+          case 2:
+            id(bar2_btn_left_event).trigger("press page 2");
+            break;
+        }
+    on_release:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar2_btn_left_event).trigger("release page 0");
+            break;
+          case 1:
+            id(bar2_btn_left_event).trigger("release page 1");
+            break;
+          case 2:
+            id(bar2_btn_left_event).trigger("release page 2");
+            break;
+        }
+    on_multi_click:
+      - timing:
+          - ON for at least 2s
+        then:
+          - lambda: |-
+              switch (id(actual_page)){
+                case 0:
+                  id(bar2_btn_left_event).trigger("long press page 0");
+                  break;
+                case 1:
+                  id(bar2_btn_left_event).trigger("long press page 1");
+                  break;
+                case 2:
+                  id(bar2_btn_left_event).trigger("long press page 2");
+                  break;
+              }
+  - id: !extend bar2_btn_right
+    on_click:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar2_btn_right_event).trigger("press page 0");
+            break;
+          case 1:
+            id(bar2_btn_right_event).trigger("press page 1");
+            id(music_card_next).execute();
+            break;
+          case 2:
+            id(bar2_btn_right_event).trigger("press page 2");
+            break;
+        }
+    on_release:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar2_btn_right_event).trigger("release page 0");
+            break;
+          case 1:
+            id(bar2_btn_right_event).trigger("release page 1");
+            break;
+          case 2:
+            id(bar2_btn_right_event).trigger("release page 2");
+            break;
+        }
+    on_multi_click:
+      - timing:
+          - ON for at least 2s
+        then:
+          - lambda: |-
+              switch (id(actual_page)){
+                case 0:
+                  id(bar2_btn_right_event).trigger("long press page 0");
+                  break;
+                case 1:
+                  id(bar2_btn_right_event).trigger("long press page 1");
+                  break;
+                case 2:
+                  id(bar2_btn_right_event).trigger("long press page 2");
+                  break;
+              }
+  - id: !extend bar3_btn_left
+    on_click:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar3_btn_left_event).trigger("press page 0");
+            break;
+          case 1:
+            id(bar3_btn_left_event).trigger("press page 1");
+            id(music_card_power).execute();
+            break;
+          case 2:
+            id(bar3_btn_left_event).trigger("press page 2");
+            break;
+        }
+    on_release:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar3_btn_left_event).trigger("release page 0");
+            break;
+          case 1:
+            id(bar3_btn_left_event).trigger("release page 1");
+            break;
+          case 2:
+            id(bar3_btn_left_event).trigger("release page 2");
+            break;
+        }
+    on_multi_click:
+      - timing:
+          - ON for at least 2s
+        then:
+          - lambda: |-
+              switch (id(actual_page)){
+                case 0:
+                  id(bar3_btn_left_event).trigger("long press page 0");
+                  break;
+                case 1:
+                  id(bar3_btn_left_event).trigger("long press page 1");
+                  break;
+                case 2:
+                  id(bar3_btn_left_event).trigger("long press page 2");
+                  break;
+              }
+  - id: !extend bar3_btn_right
+    on_click:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar3_btn_right_event).trigger("press page 0");
+            break;
+          case 1:
+            id(bar3_btn_right_event).trigger("press page 1");
+            id(music_card_playpause).execute();
+            break;
+          case 2:
+            id(bar3_btn_right_event).trigger("press page 2");
+            break;
+        }
+    on_release:
+      lambda: |-
+        switch (id(actual_page)){
+          case 0:
+            id(bar3_btn_right_event).trigger("release page 0");
+            break;
+          case 1:
+            id(bar3_btn_right_event).trigger("release page 1");
+            break;
+          case 2:
+            id(bar3_btn_right_event).trigger("release page 2");
+            break;
+        }
+    on_multi_click:
+      - timing:
+          - ON for at least 2s
+        then:
+            lambda: |-
+              switch (id(actual_page)){
+                case 0:
+                  id(bar3_btn_right_event).trigger("long press page 0");
+                  break;
+                case 1:
+                  id(bar3_btn_right_event).trigger("long press page 1");
+                  break;
+                case 2:
+                  id(bar3_btn_right_event).trigger("long press page 2");
+                  break;
+              }
+
+sensor:
+  - platform: homeassistant
+    entity_id: sensor.gw1100a_outdoor_temperature
+    id: outside_temperature
+    ###################
+    ### containers: ###
+    ###################
+  - platform: debug
+    free:
+      name: "Heap Free"
+    loop_time:
+      name: "Loop Time"
+
+text_sensor:
+  - platform: homeassistant
+    id: container_first
+    entity_id: sensor.afvalinfo_containers_first_trash
+  - platform: homeassistant
+    id: container_first_color
+    entity_id: sensor.afvalinfo_containers_first_trash_color
+  - platform: homeassistant
+    id: container_second
+    entity_id: sensor.afvalinfo_containers_second_trash
+  - platform: homeassistant
+    id: container_second_color
+    entity_id: sensor.afvalinfo_containers_second_trash_color
+
+display:
+  #########
+  # MAIN ##
+  #########
+  - id: !extend main_display
+    # data_rate: 40MHz
+    lambda: |-
+      id(all_pages_main).execute();
+      switch (id(actual_page)){
+        case 0:
+          id(containers).execute();
+          break;
+        case 1:
+          id(music_card).execute(20, 125);
+          break;
+        case 2:
+          it.print(100, 160, id(font_arial20), "This is page 3!");
+          break;
+      }
+
+script:
+  - id: containers
+    then:
+      - lambda: |-
+          // first trashcan:
+          int x = 23;
+          int y = 125;
+          if(strcmp(id(container_first_color).state.c_str(), "grey") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(grey));
+          } else if (strcmp(id(container_first_color).state.c_str(), "green") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(green));
+          } else if (strcmp(id(container_first_color).state.c_str(), "blue") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(blue));
+          } else if (strcmp(id(container_first_color).state.c_str(), "orange") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(orange));
+          }
+          id(main_display).print(x+22, y, id(font_arial20), id(music_card_text_color), TextAlign::TOP_LEFT , id(container_first).state.c_str());
+          // secomnd trashcan:
+          y = 151;
+          if(strcmp(id(container_second_color).state.c_str(), "grey") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(grey));
+          } else if (strcmp(id(container_second_color).state.c_str(), "green") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(green));
+          } else if (strcmp(id(container_second_color).state.c_str(), "blue") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(blue));
+          } else if (strcmp(id(container_second_color).state.c_str(), "orange") == 0) {
+          id(main_display).image(x, y+4, id(icon_trashcan), ImageAlign::TOP_LEFT, id(orange));
+          }
+          id(main_display).print(x+22, y, id(font_arial20), id(music_card_text_color), TextAlign::TOP_LEFT , id(container_second).state.c_str());
+  - id: all_pages_main
+    then:
+      - lambda: |-
+          //>>> prev/next icons next to butotns
+          id(main_display).image(0, 208, id(icon_prev_page), ImageAlign::TOP_LEFT, id(red));
+          id(main_display).image(320, 208, id(icon_next_page), ImageAlign::TOP_RIGHT, id(red));
+          //
+          //>>> Show page name at bottom of display
+          id(main_display).printf(160, 238, id(font_arial20), id(white), TextAlign::BASELINE_CENTER, "%s",  id(active_page_name).c_str());
+          //
+          //>>> temperature inside:
+          id(main_display).image(36, 15, id(icon_temp_inside), ImageAlign::TOP_CENTER, id(red));
+          id(main_display).printf(36, 80, id(font_arial20), id(white), TextAlign::TOP_CENTER , "%.1f°", id(inside_temperature).state);
+          //
+          //>>> print time and date
+          id(main_display).strftime(160, 5, id(font_clock), TextAlign::TOP_CENTER, "%H:%M", id(datetime).now());
+          id(main_display).strftime(160, 80, id(font_date), TextAlign::TOP_CENTER, "%d-%m-%Y", id(datetime).now());
+          //
+          //>>> outside temperature
+          id(main_display).image(285, 15, id(icon_temp_outside), ImageAlign::TOP_CENTER, id(red));
+          id(main_display).printf(285, 80, id(font_arial20), id(white), TextAlign::TOP_CENTER , "%.1f°", id(outside_temperature).state);
+  - id: !extend bar1_left_draw
+    then:
+      - lambda: |-
+          switch (id(actual_page)){
+            case 0:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(red));
+              break;
+            case 1:
+              id(music_card_bar).execute("volume_down");
+              break;
+            case 2:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(blue));
+              break;
+          }
+  - id: !extend bar1_right_draw
+    then:
+      - lambda: |-
+          switch (id(actual_page)){
+            case 0:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(red));
+              break;
+            case 1:
+              id(music_card_bar).execute("volume_up");
+              break;
+            case 2:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(blue));
+              break;
+          }
+  - id: !extend bar2_left_draw
+    then:
+      - lambda: |-
+          switch (id(actual_page)){
+            case 0:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(red));
+              break;
+            case 1:
+              id(music_card_bar).execute("prev");
+              break;
+            case 2:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(blue));
+              break;
+          }
+  - id: !extend bar2_right_draw
+    then:
+      - lambda: |-
+          switch (id(actual_page)){
+            case 0:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(red));
+              break;
+            case 1:
+              id(music_card_bar).execute("next");
+              break;
+            case 2:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(blue));
+              break;
+          }
+  - id: !extend bar3_left_draw
+    then:
+      - lambda: |-
+          switch (id(actual_page)){
+            case 0:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(red));
+              break;
+            case 1:
+              id(music_card_bar).execute("power");
+              break;
+            case 2:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(blue));
+              break;
+          }
+  - id: !extend bar3_right_draw
+    then:
+      - lambda: |-
+          switch (id(actual_page)){
+            case 0:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(red));
+              break;
+            case 1:
+              id(music_card_bar).execute("playpause");
+              break;
+            case 2:
+              id(bar_display).image(80, 0, id(lightbulb), ImageAlign::TOP_CENTER, id(blue));
+              break;
+          }

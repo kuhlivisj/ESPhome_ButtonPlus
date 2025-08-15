@@ -1,0 +1,168 @@
+##############################################
+##                                          ##
+##   filename: 1bar_1display_scripts.yaml   ##
+##   description: Specific pre-defined      ##
+##   scripts for 3 BAR 1 Display setup      ##
+##                                          ##
+##############################################
+
+script:
+######################
+### update scripts ###
+######################
+  - id: update_bar1_left
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_on();   //  <<
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+          id(bar1_left_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar1_left).turn_off();
+  - id: update_bar1_right
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_on();  // << 
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+          id(bar1_right_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar1_right).turn_off();
+  - id: update_bar2_left
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_on();   // <<
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+          id(bar2_left_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar2_left).turn_off();
+  - id: update_bar2_right
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_on();  // <<
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+          id(bar2_right_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar2_right).turn_off();
+  - id: update_bar3_left
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_on();   // <<
+          id(cs_pin_bar3_right).turn_off();
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_270_DEGREES);
+          id(bar3_left_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar3_left).turn_off();
+  - id: update_bar3_right
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_on();  // <<
+          id(bar_display).clear();
+          id(bar_display).set_rotation(display::DisplayRotation::DISPLAY_ROTATION_90_DEGREES);
+          id(bar3_right_draw).execute();
+          id(bar_display).update();
+          delay(1);
+          id(cs_pin_bar3_right).turn_off();
+####################################
+### setup mini display's scripts ###
+####################################
+  - id: setup_bar_displays
+    then:
+      - lambda: |-
+          id(cs_pin_bar1_left).turn_on();
+          id(bar_display).setup();
+          delay(5);
+          id(cs_pin_bar1_left).turn_off();
+          id(cs_pin_bar1_right).turn_on();
+          id(bar_display).setup();
+          delay(5);
+          id(cs_pin_bar1_right).turn_off();
+          id(cs_pin_bar2_left).turn_on();
+          id(bar_display).setup();
+          delay(5);
+          id(cs_pin_bar2_left).turn_off();
+          id(cs_pin_bar2_right).turn_on();
+          id(bar_display).setup();
+          delay(5);
+          id(cs_pin_bar2_right).turn_off();
+          id(cs_pin_bar3_left).turn_on();
+          id(bar_display).setup();
+          delay(5);
+          id(cs_pin_bar3_left).turn_off();
+          id(cs_pin_bar3_right).turn_on();
+          id(bar_display).setup();
+          delay(5);
+          id(cs_pin_bar3_right).turn_off();
+###############################
+### pre-define draw scripts ###
+###############################
+  - id: bar1_left_draw
+    then:
+  - id: bar1_right_draw
+    then:
+  - id: bar2_left_draw
+    then:
+  - id: bar2_right_draw
+    then:
+  - id: bar3_left_draw
+    then:
+  - id: bar3_right_draw
+    then:
+######################
+### update scripts ###
+######################
+  - id: update_main
+    then:
+      - component.update: main_display
+  - id: update_all
+    then:
+      - component.update: main_display
+      - delay: 0.1s
+      - script.execute: update_bar1_left
+      - delay: 0.1s
+      - script.execute: update_bar1_right
+      - delay: 0.1s
+      - script.execute: update_bar2_left
+      - delay: 0.1s
+      - script.execute: update_bar2_right
+      - delay: 0.1s
+      - script.execute: update_bar3_left
+      - delay: 0.1s
+      - script.execute: update_bar3_right
